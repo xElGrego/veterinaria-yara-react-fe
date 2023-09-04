@@ -7,3 +7,11 @@ const userState = (state: RootState) => state.user;
 export const userSelector = createSelector(userState, (state: UserState) => {
   return state.user;
 });
+
+export const tokenSelector = createSelector(userState, (state: UserState) => {
+  return state.user.token;
+});
+
+export const nombreSelector = createSelector(userState, (state: UserState) => {
+  return state.user.nombres;
+});
