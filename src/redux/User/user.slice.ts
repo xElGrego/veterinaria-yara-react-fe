@@ -1,0 +1,17 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { UserState, initialState } from "./user.state";
+
+export const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
+    saveUser: (state: UserState, action) => {
+      const { nombres, apellidos, correo, token, rol } = action.payload;
+      state.user = { ...state.user, nombres, apellidos, correo, token, rol };
+      localStorage.setItem("user", JSON.stringify(state.user));
+    },
+  },
+});
+
+export const { saveUser } = userSlice.actions;
+export default userSlice.reducer;
