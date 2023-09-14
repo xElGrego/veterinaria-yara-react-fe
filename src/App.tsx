@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login/Login";
 import { Home } from "./pages/Home/Home";
+import { MascotaIndex } from "./pages/Mascotas/Index";
 
 export function App() {
   return (
@@ -8,7 +9,10 @@ export function App() {
       <Routes>
         <Route path="/" element={<Navigate to={"/login"} />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Home />} />
+        <Route path="/dashboard" element={<Home />}>
+          <Route path="mascotas" element={<MascotaIndex />} />
+        </Route>
+
         {/* <Route path="/productos" element={<ProductosIndex />} />
         <Route path="/form-basic" element={<FormBasicPage />} />
         <Route path="/form-avanced" element={<FormBasicPage />} /> */}

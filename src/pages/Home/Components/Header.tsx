@@ -9,13 +9,13 @@ import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import React from "react";
 
-export const Header: FC = () => {
+export const SideBar: FC = () => {
   const [open, setOpen] = useState(true);
 
   const menus = [
-    { name: "Usuarios", link: "/usuarios", icon: AiOutlineUser },
-    { name: "Mascotas", link: "/mascotas", icon: FiMessageSquare },
-    { name: "Razas", link: "/", icon: TbReportAnalytics },
+    { name: "Usuarios", link: "usuarios", icon: AiOutlineUser },
+    { name: "Mascotas", link: "mascotas", icon: FiMessageSquare },
+    { name: "Razas", link: "razas", icon: TbReportAnalytics },
   ];
 
   return (
