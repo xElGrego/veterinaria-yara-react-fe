@@ -30,7 +30,7 @@ export const LoginForm: FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleSubmit2 = async () => {
+  const handleLogin = async () => {
     try {
       const params: LoginRequest = { ...getValues() };
       await postLogin(params);
@@ -41,7 +41,7 @@ export const LoginForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleSubmit2)}>
+    <form onSubmit={handleSubmit(handleLogin)}>
       <div className="py-4">
         <span className="mb-2 text-md">Correo</span>
         <input {...register("correo")} className="input-general" />
