@@ -2,7 +2,7 @@ import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MascotaRequest } from "../../domain/Mascotas/MascotaRequest";
 import { MascotasForm } from "./Components/MascotasForm";
-import { TestRabbit } from "./Components/TestRabbit";
+/* import { TestRabbit } from "./Components/TestRabbit"; */
 
 export const Mascotas: FC = () => {
   const initialStateForm: MascotaRequest = {
@@ -18,7 +18,7 @@ export const Mascotas: FC = () => {
   return (
     <FormProvider {...methods}>
       <MascotasForm />
-      <TestRabbit />
+      {/* <TestRabbit /> */}
     </FormProvider>
   );
 };

@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import imagen from "../../assets/img/mascotas.jpg";
 import { LoginRequest } from "../../domain/Login/Login";
