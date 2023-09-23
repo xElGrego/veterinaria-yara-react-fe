@@ -12,10 +12,6 @@ export function App() {
         <Route path="/dashboard" element={<Home />}>
           <Route path="mascotas" element={<MascotaIndex />} />
         </Route>
-
-        {/* <Route path="/productos" element={<ProductosIndex />} />
-        <Route path="/form-basic" element={<FormBasicPage />} />
-        <Route path="/form-avanced" element={<FormBasicPage />} /> */}
       </Routes>
     </BrowserRouter>
   );
