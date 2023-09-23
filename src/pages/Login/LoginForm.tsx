@@ -4,9 +4,9 @@ import { LoginRequest } from "../../domain/Login/Login";
 import usePostLogin from "../../application/Login/postLogin";
 import { useToastify } from "../../hooks/Toastify";
 import { useNavigate } from "react-router-dom";
-
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { InputText } from "../../shared/Components/InputText";
 
 export const LoginForm: FC = () => {
   const { postLogin } = usePostLogin();
@@ -22,8 +22,8 @@ export const LoginForm: FC = () => {
   });
 
   const {
-    register,
     handleSubmit,
+    register,
     getValues,
     formState: { errors },
   } = useForm<LoginRequest>({
@@ -36,22 +36,24 @@ export const LoginForm: FC = () => {
       await postLogin(params);
       navigate("/dashboard");
     } catch (error) {
-      onError("Hubo un error al iniciar sesion");
+      onError("Hubo un error al iniciar sesión");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(handleLogin)}>
-      <div className="py-4">
-        <span className="mb-2 text-md">Correo</span>
-        <input {...register("correo")} className="input-general" />
-        {<p className="text-red-600">{errors.correo?.message}</p>}
-        <div className="py-4">
-          <span className="mb-2 text-md">Contraseña</span>
-          <input {...register("clave")} className="input-general" />
-          {<p className="text-red-600">{errors.clave?.message}</p>}
-        </div>
-      </div>
+    <form onSubmit={handleSubmit(handleLogin)} className="py-4">
+      <InputText
+        label="Correo"
+        name="correo"
+        error={errors.correo?.message}
+        register={register}
+      />
+      <InputText
+        label="Clave"
+        name="clave"
+        error={errors.clave?.message}
+        register={register}
+      />
       <button
         type="submit"
         className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
