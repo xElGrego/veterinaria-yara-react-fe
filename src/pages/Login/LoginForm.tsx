@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { LoginRequest } from "../../domain/Login/Login";
 import usePostLogin from "../../application/Login/postLogin";
 import { useToastify } from "../../hooks/Toastify";
@@ -51,13 +51,13 @@ export const LoginForm: FC = () => {
           <input {...register("clave")} className="input-general" />
           {<p className="text-red-600">{errors.clave?.message}</p>}
         </div>
-        <button
-          type="submit"
-          className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
-        >
-          Ingresar
-        </button>
       </div>
+      <button
+        type="submit"
+        className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
+      >
+        Ingresar
+      </button>
     </form>
   );
 };
