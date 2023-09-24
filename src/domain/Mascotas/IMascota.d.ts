@@ -6,3 +6,12 @@ export interface IMascota {
     Raza: string;
     Estado: bool
 }
+
+
+export type MascotaRequest = {
+    nombre?: string;
+    descripcion?: string;
+    estado: number;
+    start?: number;
+    length?: number;
+};

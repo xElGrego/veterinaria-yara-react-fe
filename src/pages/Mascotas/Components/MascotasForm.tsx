@@ -1,34 +1,22 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
-
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useFormContext } from "react-hook-form";
 import { useToastify } from "../../../hooks/Toastify";
-import { MascotaRequest } from "../../../domain/Mascotas/MascotaRequest";
 import { InputText } from "../../../shared/Components/InputText";
 import useEstados from "../../../shared/hooks/useEstados";
 import InputSelect from "../../../shared/Components/InputSelect";
+import { MascotaRequest } from "../../../domain/Mascotas/IMascota";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
-
   const { EstadosList, IsLoading: loadingEstados } = useEstados();
-
-  const schema = yup.object().shape({
-    nombre: yup.string().optional(),
-    descripcion: yup.string().optional(),
-    estado: yup.string().required("El estado es obligatoria"),
-  });
 
   const {
     handleSubmit,
     register,
-    getValues,
     reset,
+    getValues,
     formState: { errors },
-  } = useForm<MascotaRequest>({
-    resolver: yupResolver(schema),
-  });
+  } = useFormContext<MascotaRequest>();
 
   const handlerConsultar = async () => {
     try {
