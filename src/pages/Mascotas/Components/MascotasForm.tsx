@@ -19,13 +19,15 @@ export const MascotasForm: FC = () => {
     formState: { errors },
   } = useFormContext<MascotaRequest>();
 
-  const { searchMascotas, Mascotas } = useContext(MascotaContext) as IMascotasContext;
+  const { setMascotas, Mascotas, resetPagination } = useContext(MascotaContext) as IMascotasContext;
 
   const handlerConsultar = async () => {
     try {
       const params: MascotaRequest = { ...getValues() };
+      params.start = 0;
       console.log("Params" + JSON.stringify(params));
-      await searchMascotas(params);
+      await setMascotas(params);
+      resetPagination();
     } catch (error) {
       onError("Hubo un error.");
     }
@@ -33,7 +35,7 @@ export const MascotasForm: FC = () => {
 
   const handlerLimpiar = () => {
     reset();
-    Mascotas.pop();
+    Mascotas.splice(0, Mascotas.length);
   };
 
   return (

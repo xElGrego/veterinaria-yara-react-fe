@@ -5,7 +5,7 @@ import { IPaginationButtonsProps } from "../../shared/Components/PaginationButto
 
 export interface IMascotasContext {
   Mascotas: IMascota[];
-  searchMascotas: Dispatch<SetStateAction<MascotaRequest>>;
+  setMascotas: Dispatch<SetStateAction<MascotaRequest>>;
   IsLoading: boolean;
   TotalDocs: number;
   ActualPage: number;
@@ -31,7 +31,6 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
 
   const {
     Mascotas,
-    searchMascotas,
     IsLoading,
     ActualPage,
     totalPage,
@@ -45,9 +44,9 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
 
   const storage: IMascotasContext = {
     Mascotas,
-    searchMascotas,
     IsLoading,
     ActualPage,
+    setMascotas,
     TotalPage: totalPage,
     resetPagination,
     TotalDocs,
