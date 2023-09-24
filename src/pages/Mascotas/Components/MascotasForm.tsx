@@ -1,10 +1,11 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { useFormContext } from "react-hook-form";
 import { useToastify } from "../../../hooks/Toastify";
 import { InputText } from "../../../shared/Components/InputText";
 import useEstados from "../../../shared/hooks/useEstados";
 import InputSelect from "../../../shared/Components/InputSelect";
 import { MascotaRequest } from "../../../domain/Mascotas/IMascota";
+import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
@@ -18,10 +19,13 @@ export const MascotasForm: FC = () => {
     formState: { errors },
   } = useFormContext<MascotaRequest>();
 
+  const { searchMascotas } = useContext(MascotaContext) as IMascotasContext;
+
   const handlerConsultar = async () => {
     try {
       const params: MascotaRequest = { ...getValues() };
       console.log("Params" + JSON.stringify(params));
+      await searchMascotas(params);
     } catch (error) {
       onError("Hubo un error.");
     }

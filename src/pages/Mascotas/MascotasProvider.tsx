@@ -1,7 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
-import { IMascota } from "../../domain/Mascotas/IMascota";
-import { MascotaRequest } from "../../domain/Mascotas/MascotaRequest";
-import useMascotas from "./hooks/useMasccotas";
+import { IMascota, MascotaRequest } from "../../domain/Mascotas/IMascota";
+import useMascotas from "./hooks/useMascotas";
 
 export interface IMascotasContext {
   Mascotas: IMascota[];
@@ -13,9 +12,12 @@ const MascotaContext = createContext({});
 
 export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   const initialRequest: MascotaRequest = {
+    idUsuario: "",
     nombre: "",
     descripcion: "",
-    estado: "",
+    estado: 0,
+    start: 0,
+    length: 10,
   };
 
   const { Mascotas, searchMascotas, IsLoading } = useMascotas(initialRequest);
@@ -32,3 +34,5 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
     </MascotaContext.Provider>
   );
 };
+
+export default MascotaContext;

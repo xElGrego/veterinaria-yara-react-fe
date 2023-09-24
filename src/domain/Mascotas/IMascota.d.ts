@@ -9,6 +9,7 @@ export interface IMascota {
 
 
 export type MascotaRequest = {
+    idUsuario?: Guid;
     nombre?: string;
     descripcion?: string;
     estado: number;
