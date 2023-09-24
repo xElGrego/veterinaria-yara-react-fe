@@ -42,18 +42,20 @@ export const LoginForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(handleLogin)} className="py-4">
-      <InputText
-        label="Correo"
-        name="correo"
-        error={errors.correo?.message}
-        register={register}
-      />
-      <InputText
-        label="Clave"
-        name="clave"
-        error={errors.clave?.message}
-        register={register}
-      />
+      <div className="mb-6" >
+        <InputText
+          label="Correo"
+          name="correo"
+          error={errors.correo?.message}
+          register={register}
+        />
+        <InputText
+          label="Clave"
+          name="clave"
+          error={errors.clave?.message}
+          register={register}
+        />
+      </div>
       <button
         type="submit"
         className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"

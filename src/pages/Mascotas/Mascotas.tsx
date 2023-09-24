@@ -21,8 +21,8 @@ export const Mascotas: FC = () => {
     nombre: yup.string().optional(),
     descripcion: yup.string().optional(),
     estado: yup.number().required("El estado es obligatorio"),
-    start: yup.number().optional(),
-    length: yup.number().optional(),
+    start: yup.number().required(),
+    length: yup.number().required(),
   });
 
   const methods = useForm<MascotaRequest>({

@@ -2,8 +2,9 @@ import { FC, useContext } from "react";
 import { Spinner } from "../../../shared/Components/Spinner";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import { IMascota } from '../../../domain/Mascotas/IMascota';
+import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
 export const MascotasList: FC = () => {
-  const { Mascotas, IsLoading } = useContext(
+  const { Mascotas, IsLoading, ActualPage, TotalDocs, buttons } = useContext(
     MascotaContext
   ) as IMascotasContext;
 
@@ -108,25 +109,25 @@ export const MascotasList: FC = () => {
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <span className="text-sm font-normal ml-2 text-gray-400 dark:text-gray-400"></span>
                 Mostrando
-                {/* {ComprasList.length == 0 ? (
-                    <span className="font-semibold text-gray-900 dark:text-white">
-                      0 de 0 Registros
-                    </span>
-                  ) : (
-                    <span className="font-semibold text-gray-900 dark:text-white">
-                      {` ${(ActualPage - 1) * 10 + 1} - ${Math.min(
-                        ActualPage * 10,
-                        TotalDocs
-                      )} de ${TotalDocs} Registros`}
-                    </span>
-                  )}
-                </span>
-                <PaginationButtons {...buttons} /> */}
+                {Mascotas.length == 0 ? (
+                  <span className="font-semibold text-black-900 dark:text-black">
+                    0 de 0 Registros
+                  </span>
+                ) : (
+                  <span className="font-semibold text-black-900 dark:text-black">
+                    {` ${(ActualPage - 1) * 10 + 1} - ${Math.min(
+                      ActualPage * 10,
+                      TotalDocs
+                    )} de ${TotalDocs} Registros`}
+                  </span>
+                )}
               </div>
+              <PaginationButtons {...buttons} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
+
   );
 };

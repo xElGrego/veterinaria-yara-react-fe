@@ -3,6 +3,7 @@ import imagen from "../../assets/img/mascotas.jpg";
 import { LoginRequest } from "../../domain/Login/Login";
 import { FormProvider, useForm } from "react-hook-form";
 import { LoginForm } from "./LoginForm";
+import { Test } from "./Test";
 
 export const Login: FC = () => {
   const loginForm: LoginRequest = {
@@ -33,6 +34,7 @@ export const Login: FC = () => {
             />
           </div>
         </div>
+        <Test />
       </div>
     </FormProvider>
   );

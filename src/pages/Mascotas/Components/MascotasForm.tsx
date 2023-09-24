@@ -19,7 +19,7 @@ export const MascotasForm: FC = () => {
     formState: { errors },
   } = useFormContext<MascotaRequest>();
 
-  const { searchMascotas } = useContext(MascotaContext) as IMascotasContext;
+  const { searchMascotas, Mascotas } = useContext(MascotaContext) as IMascotasContext;
 
   const handlerConsultar = async () => {
     try {
@@ -33,6 +33,7 @@ export const MascotasForm: FC = () => {
 
   const handlerLimpiar = () => {
     reset();
+    Mascotas.pop();
   };
 
   return (
