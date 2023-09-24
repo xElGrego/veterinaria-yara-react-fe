@@ -1,10 +1,14 @@
 export interface IMascota {
-    Nombre: string;
-    Mote: string;
-    Edad: number;
-    Peso: number;
-    Raza: string;
-    Estado: bool
+    idMascota: string;
+    idUsuario: string;
+    nombre: string;
+    mote: string;
+    edad: number;
+    peso: number;
+    idRaza: string;
+    fechaIngreso: Date | null;
+    fechaModificacion: Date;
+    estado: number;
 }
 
 

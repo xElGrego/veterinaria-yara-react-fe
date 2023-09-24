@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Spinner } from "../../../shared/Components/Spinner";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
-import { IMascota } from "../../../domain/Mascotas/IMascota";
+import { IMascota } from '../../../domain/Mascotas/IMascota';
 export const MascotasList: FC = () => {
   const { Mascotas, IsLoading } = useContext(
     MascotaContext
@@ -9,6 +9,7 @@ export const MascotasList: FC = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
+
       <div className=" flex flex-col">
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
@@ -55,29 +56,35 @@ export const MascotasList: FC = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="text-center divide-y   dark:text-white">
+
+                <tbody className="text-center divide-y  text-white">
                   {!IsLoading ? (
                     Mascotas.length >= 0 ? (
                       Mascotas.map((el: IMascota, key: number) => (
                         <tr
                           key={key}
-                        /*   onClick={() => manejarClicFila(key)} */
-                        /*  className={
-                          filaSeleccionada === key
-                            ? "bg-blue-600 text-white transition-colors duration-100 dark:bg-gray-700"
-                            : "text-black transition-colors duration-100 [&>td]:dark:text-gray-300"
-                        } */
                         >
-                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden ">
-                            {el.Nombre}
+                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                            {el.nombre}
                           </td>
 
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
-                            {el.Edad}
+                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                            {el.mote}
                           </td>
-                          {/* <td className="py-3.5 pl-4 pr-3 sm:pl-6 ">
-                            <DropdownCom Field={el} />
-                          </td> */}
+
+                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                            {el.edad}
+                          </td>
+
+                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                            {el.peso}
+                          </td>
+                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                            {el.idRaza}
+                          </td>
+                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                            {el!.fechaIngreso?.toString()}
+                          </td>
                         </tr>
                       ))
                     ) : (
