@@ -1,10 +1,8 @@
 import { FC, useState } from "react";
-import { HiMenuAlt3 } from "react-icons/hi";
-import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
+import { HiMenuAlt3, HiLogout } from "react-icons/hi";
 import { TbReportAnalytics } from "react-icons/tb";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
-import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
+import { AiOutlineUser } from "react-icons/ai";
+import { FiMessageSquare } from "react-icons/fi";
 
 import { Link } from "react-router-dom";
 import React from "react";
@@ -20,18 +18,18 @@ export const SideBar: FC = () => {
 
   return (
     <div
-      className={`bg-[#0e0e0e] min-h-screen ${
+      className={`bg-[#0e0e0e] min-h-screen flex flex-col justify-between ${
         open ? "w-72" : "w-16"
       } duration-500 text-gray-100 px-4`}
     >
-      <div className="py-3 flex justify-end">
-        <HiMenuAlt3
-          size={26}
-          className="cursor-pointer"
-          onClick={() => setOpen(!open)}
-        />
-      </div>
-      <div className="mt-4 flex flex-col gap-4 relative">
+      <div className="mt-4 flex flex-col gap-4 ">
+        <div className="py-3 justify-end ">
+          <HiMenuAlt3
+            size={26}
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
+        </div>
         {menus?.map((menu, i) => (
           <Link
             to={menu?.link}
@@ -58,6 +56,25 @@ export const SideBar: FC = () => {
             </h2>
           </Link>
         ))}
+      </div>
+      <div className="mb-8 flex gap-4 ">
+        <div>
+          <HiLogout
+            size={26}
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
+        </div>
+        <h2
+          style={{
+            transitionDelay: `300ms`,
+          }}
+          className={`whitespace-pre duration-500 ${
+            !open && "opacity-0 translate-x-28 overflow-hidden"
+          }`}
+        >
+          Salir
+        </h2>
       </div>
     </div>
   );

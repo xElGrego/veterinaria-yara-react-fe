@@ -6,9 +6,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useToastify } from "../../../hooks/Toastify";
 import { MascotaRequest } from "../../../domain/Mascotas/MascotaRequest";
 import { InputText } from "../../../shared/Components/InputText";
+import useEstados from "../../../shared/hooks/useEstados";
+import InputSelect from "../../../shared/Components/InputSelect";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
+
+  const { EstadosList, IsLoading: loadingEstados } = useEstados();
 
   const schema = yup.object().shape({
     nombre: yup.string().optional(),
@@ -54,11 +58,15 @@ export const MascotasForm: FC = () => {
           error={errors.descripcion?.message}
           register={register}
         />
-        <InputText
-          label="Estado"
+        <InputSelect
           name="estado"
-          error={errors.estado?.message}
           register={register}
+          title="Estado"
+          options={
+            loadingEstados
+              ? [{ value: 0, title: "Cargando..." }]
+              : [...EstadosList]
+          }
         />
       </div>
       <div className=" mt-4 flex justify-end gap-4">
