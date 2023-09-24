@@ -5,12 +5,14 @@ import MascotaClient from "./configurationt";
 
 const useMascotasServices = (): MascotasServices => {
     const getMascotas = async (req: MascotaRequest): Promise<ItemsPaginationResponse<IMascota>> => {
+
         const idUsuarioParam = req.idUsuario ? `idUsuario=${req.idUsuario}` : '';
-        let params = `consulta-mascotas?start=${req.start}&lenght=${req.length}`;
+        let params = `consulta-mascotas?start=${req.start}&lenght=${req.length}&estado=${req.estado}&fechaInicio=${req.fechaInicio}&fechaFin=${req.fechaFin}`;
 
         if (idUsuarioParam) {
             params += `&${idUsuarioParam}`;
         }
+
         let request = await MascotaClient.get("/veterinaria-yara/" + params);
         const parsed: IMascota[] = request.data.data.consulta.map(
             (el: IMascota) => {

@@ -11,9 +11,11 @@ export const Mascotas: FC = () => {
     idUsuario: "",
     nombre: "",
     descripcion: "",
-    estado: 0,
+    estado: 1,
     start: 0,
     length: 10,
+    fechaFin: "",
+    fechaInicio: "",
   };
 
   const schema = yup.object().shape({
@@ -23,6 +25,8 @@ export const Mascotas: FC = () => {
     estado: yup.number().required("El estado es obligatorio"),
     start: yup.number().required(),
     length: yup.number().required(),
+    fechaFin: yup.string().required(),
+    fechaInicio: yup.string().required(),
   });
 
   const methods = useForm<MascotaRequest>({

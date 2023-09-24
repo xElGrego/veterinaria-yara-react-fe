@@ -1,7 +1,14 @@
-import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from "react";
 import { IMascota, MascotaRequest } from "../../domain/Mascotas/IMascota";
 import useMascotas from "./hooks/useMascotas";
 import { IPaginationButtonsProps } from "../../shared/Components/PaginationButtons";
+import moment from "moment";
 
 export interface IMascotasContext {
   Mascotas: IMascota[];
@@ -21,13 +28,14 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
     idUsuario: "",
     nombre: "",
     descripcion: "",
-    estado: 0,
+    estado: 1,
     start: 0,
     length: 10,
+    fechaInicio: moment(new Date().toUTCString()).format("YYYY-MM-DD"),
+    fechaFin: moment(new Date().toUTCString()).format("YYYY-MM-DD"),
   };
 
-  const [mascotas, setMascotas] =
-    useState<MascotaRequest>(initialRequest);
+  const [mascotas, setMascotas] = useState<MascotaRequest>(initialRequest);
 
   const {
     Mascotas,

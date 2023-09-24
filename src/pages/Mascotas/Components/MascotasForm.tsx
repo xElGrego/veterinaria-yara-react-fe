@@ -6,6 +6,7 @@ import useEstados from "../../../shared/hooks/useEstados";
 import InputSelect from "../../../shared/Components/InputSelect";
 import { MascotaRequest } from "../../../domain/Mascotas/IMascota";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
+import { InputDate } from "../../../shared/Components/InputDate";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
@@ -19,13 +20,14 @@ export const MascotasForm: FC = () => {
     formState: { errors },
   } = useFormContext<MascotaRequest>();
 
-  const { setMascotas, Mascotas, resetPagination } = useContext(MascotaContext) as IMascotasContext;
+  const { setMascotas, Mascotas, resetPagination } = useContext(
+    MascotaContext
+  ) as IMascotasContext;
 
   const handlerConsultar = async () => {
     try {
       const params: MascotaRequest = { ...getValues() };
       params.start = 0;
-      console.log("Params" + JSON.stringify(params));
       await setMascotas(params);
       resetPagination();
     } catch (error) {
@@ -51,6 +53,18 @@ export const MascotasForm: FC = () => {
           label="Descripcion"
           name="descripcion"
           error={errors.descripcion?.message}
+          register={register}
+        />
+        <InputDate
+          order="true"
+          name="fechaInicio"
+          title="Fecha Inicio"
+          register={register}
+        />
+        <InputDate
+          order="true"
+          name="fechaFin"
+          title="Fecha Fin"
           register={register}
         />
         <InputSelect
