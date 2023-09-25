@@ -11,7 +11,6 @@ export interface IMascota {
     estado: number;
 }
 
-
 export type MascotaRequest = {
     idUsuario?: Guid;
     nombre?: string;

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@cloudamqp/amqp-client": "^2.1.1",
+    "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.1",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",

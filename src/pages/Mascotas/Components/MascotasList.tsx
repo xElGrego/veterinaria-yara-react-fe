@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Spinner } from "../../../shared/Components/Spinner";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
-import { IMascota } from '../../../domain/Mascotas/IMascota';
+import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
 export const MascotasList: FC = () => {
   const { Mascotas, IsLoading, ActualPage, TotalDocs, buttons } = useContext(
@@ -10,18 +10,14 @@ export const MascotasList: FC = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
-
       <div className=" flex flex-col ">
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
             <div className="ring-1 ring-black    max-h-[65vh] overflow-x-auto w-auto  ring-opacity-5 md:rounded-lg  shadow bg-white dark:bg-gray-900  ">
               <table className="min-w-full table-fixed   divide-y w-auto divide-gray-300 dark:divide-gray-700 ">
                 {Mascotas.length == 0 ? (
-                  <span >
-
-                  </span>
+                  <span></span>
                 ) : (
-
                   <thead className="text-center divide-y top-0 z-50 bg-white divide-gray-200 dark:divide-gray-700 dark:bg-gray-800 dark:text-gray-400">
                     <tr className="divide-x divide-gray-50 ">
                       <th scope="col" className="py-3.5 pl-4 pr-3 sm:pl-6">
@@ -65,33 +61,30 @@ export const MascotasList: FC = () => {
                   </thead>
                 )}
 
-
                 <tbody className="text-center divide-y  text-white">
                   {!IsLoading ? (
-                    Mascotas.length >= 0 ? (
+                    Mascotas.length > 0 ? (
                       Mascotas.map((el: IMascota, key: number) => (
-                        <tr
-                          key={key}
-                        >
+                        <tr key={key}>
                           <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.nombre}
                           </td>
 
-                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.mote}
                           </td>
 
-                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.edad}
                           </td>
 
-                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.peso}
                           </td>
-                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.idRaza}
                           </td>
-                          <td className=" text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden  ">
+                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el!.fechaIngreso?.toString()}
                           </td>
                         </tr>
@@ -134,11 +127,9 @@ export const MascotasList: FC = () => {
                 <PaginationButtons {...buttons} />
               </div>
             )}
-
           </div>
         </div>
       </div>
-    </div >
-
+    </div>
   );
 };
