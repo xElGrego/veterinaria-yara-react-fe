@@ -22,8 +22,8 @@ export const ContentModal: FC = () => {
         <div>
           <InputText
             label="Nombre"
-            name="nombre"
-            error={errors.nombre?.message}
+            name="nombreMascota"
+            error={errors.nombreMascota?.message}
             register={register}
           />
           <InputText
