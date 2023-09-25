@@ -8,7 +8,7 @@ import { MascotaRequest } from "../../../domain/Mascotas/IMascota";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import { InputDate } from "../../../shared/Components/InputDate";
 import { ModalGeneral } from "../../../shared/Components/Modal/ModalGeneral";
-import { ContentModal } from "./ModalAgregar/Modal";
+import { ModalMascotaIndex } from "./ModalAgregar";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
@@ -51,7 +51,7 @@ export const MascotasForm: FC = () => {
   return (
     <>
       <ModalGeneral isOpen={isOpen} onClose={toggleModal} title={"Mascota"}>
-        <ContentModal />
+        <ModalMascotaIndex />
       </ModalGeneral>
       <form onSubmit={handleSubmit(handlerConsultar)} className="py-4">
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
