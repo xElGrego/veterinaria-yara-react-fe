@@ -54,7 +54,11 @@ export const ContentModal: FC = () => {
       <br />
       <div className="flex gap-4 justify-end">
         <Button onClick={handlerAgregar} title="Agregar" type="submit" />
-        <Button onClick={handlerLimpiar} title="Limpiar" />
+        <Button
+          onClick={handlerLimpiar}
+          title="Limpiar"
+          backgroundColor="bg-red-600"
+        />
       </div>
     </form>
   );
