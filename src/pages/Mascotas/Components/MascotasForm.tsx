@@ -29,6 +29,7 @@ export const MascotasForm: FC = () => {
       const params: MascotaRequest = { ...getValues() };
       params.start = 0;
       await setMascotas(params);
+
       resetPagination();
     } catch (error) {
       onError("Hubo un error.");
@@ -58,13 +59,13 @@ export const MascotasForm: FC = () => {
         <InputDate
           order="true"
           name="fechaInicio"
-          title="Fecha Inicio"
+          title="Desde"
           register={register}
         />
         <InputDate
           order="true"
           name="fechaFin"
-          title="Fecha Fin"
+          title="Hasta"
           register={register}
         />
         <InputSelect

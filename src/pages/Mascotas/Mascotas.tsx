@@ -5,6 +5,7 @@ import { MascotaRequest } from "../../domain/Mascotas/IMascota";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MascotasList } from "./Components/MascotasList";
+import moment from "moment";
 
 export const Mascotas: FC = () => {
   const mascotasForm: MascotaRequest = {
@@ -14,8 +15,8 @@ export const Mascotas: FC = () => {
     estado: 1,
     start: 0,
     length: 10,
-    fechaFin: "",
-    fechaInicio: "",
+    fechaInicio: moment(new Date().toUTCString()).format("YYYY-MM-DD"),
+    fechaFin: moment(new Date().toUTCString()).format("YYYY-MM-DD"),
   };
 
   const schema = yup.object().shape({
@@ -25,8 +26,8 @@ export const Mascotas: FC = () => {
     estado: yup.number().required("El estado es obligatorio"),
     start: yup.number().required(),
     length: yup.number().required(),
-    fechaFin: yup.string().required(),
-    fechaInicio: yup.string().required(),
+    fechaFin: yup.string().optional(),
+    fechaInicio: yup.string().optional(),
   });
 
   const methods = useForm<MascotaRequest>({

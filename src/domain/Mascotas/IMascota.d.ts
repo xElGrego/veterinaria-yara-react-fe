@@ -19,6 +19,6 @@ export type MascotaRequest = {
     estado: number;
     start: number;
     length: number;
-    fechaInicio: string;
-    fechaFin: string;
+    fechaInicio?: string;
+    fechaFin?: string;
 };
