@@ -5,6 +5,7 @@ interface ButtonIconProps {
   svg?: JSX.Element;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   backgroundColor?: string;
+  type?: "submit" | "button";
 }
 
 export const Button = (props: ButtonIconProps) => {
@@ -13,7 +14,7 @@ export const Button = (props: ButtonIconProps) => {
   return (
     <div className="text-xs flex space-x-2 my-auto">
       <button
-        type="button"
+        type={props.type || "button"}
         onClick={props.onClick}
         className={`${buttonClasses} ${
           props.backgroundColor || "bg-neutral-800"
