@@ -7,7 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 export const ModalMascotaIndex: FC = () => {
   const mascotaForm: IAddMascotaRequest = {
-    nombreMascota: "",
+    idRaza: "",
+    nombre: "",
     mote: "",
     edad: 0,
     peso: 0,
@@ -16,7 +17,8 @@ export const ModalMascotaIndex: FC = () => {
   const schema = yup.object().shape({
     /*     idUsuario: yup.string().required(),
     idRaza: yup.string().required(), */
-    nombreMascota: yup.string().required("El nombre es obligatorio"),
+    idRaza: yup.string().optional(),
+    nombre: yup.string().required("El nombre es obligatorio"),
     mote: yup.string().optional(),
     edad: yup.number().required(),
     peso: yup.number().required(),

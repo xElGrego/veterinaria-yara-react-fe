@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Button } from "../Button";
 import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { InputText } from "../../../../shared/Components/InputText";
+import { InputRaza } from "../../../../shared/Components/Inputs/InputRaza";
 
 export const ContentModal: FC = () => {
   const {
@@ -10,6 +11,7 @@ export const ContentModal: FC = () => {
     register,
     getValues,
     reset,
+    control,
     formState: { errors },
   } = useFormContext<IAddMascotaRequest>();
 
@@ -22,13 +24,34 @@ export const ContentModal: FC = () => {
     reset();
   };
 
+  const idRaza = useWatch({
+    control,
+    name: "idRaza", // Nombre del campo
+    defaultValue: "", // Valor por defecto si es necesario
+  });
+
   return (
     <form onSubmit={handleSubmit(handlerAgregar)} className="py-4">
       <div>
+        <Controller
+          name="idRaza"
+          control={control}
+          render={({ field }) => (
+            <InputRaza
+              {...field}
+              name="idRaza"
+              title="Raza"
+              register={register}
+            />
+          )}
+        />
+
+        <p>Valor seleccionado: {idRaza}</p>
+
         <InputText
           label="Nombre"
-          name="nombreMascota"
-          error={errors.nombreMascota?.message}
+          name="nombre"
+          error={errors.nombre?.message}
           register={register}
         />
         <InputText
@@ -53,7 +76,7 @@ export const ContentModal: FC = () => {
 
       <br />
       <div className="flex gap-4 justify-end">
-        <Button onClick={handlerAgregar} title="Agregar" type="submit" />
+        <Button title="Agregar" type="submit" />
         <Button
           onClick={handlerLimpiar}
           title="Limpiar"

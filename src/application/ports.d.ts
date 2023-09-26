@@ -21,3 +21,6 @@ export interface MascotasServices {
 export interface EstadosServices {
   getEstados(): Promise<EstadosResponse[]>
 }
+export interface RazasServices {
+  getListaRazas(): Promise<RazasResponnse[]>
+}

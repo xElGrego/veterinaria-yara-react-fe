@@ -1,18 +1,19 @@
 export interface IAddMascotaRequest {
     //idUsuario: Guid;
-    nombreMascota: string;
+    idRaza?: Guid;
+    nombre: string;
     mote?: string;
     edad: number;
     peso: number;
-    //idRaza: Guid;
+
 }
 
 export interface IAddMascotaResponse {
     idMascota?: Guid;
     idUsuario: Guid;
+    idRaza?: Guid;
     nombre: string;
     mote?: string;
     edad: number;
     peso: number;
-    idRaza: Guid;
 }
