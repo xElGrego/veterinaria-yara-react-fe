@@ -6,17 +6,17 @@ const createInitialUserState = (): User => ({
   nombres: "",
   rol: "",
   token: "",
-  empresas: []
+  razas: []
 });
 
 export interface UserState {
   user: User;
-  loading: boolean; empresas: []
-
+  loading: boolean;
+  razas: []
 }
 
 export const initialState: UserState = {
   user: createInitialUserState(),
-  loading: false, empresas: []
-
+  loading: false,
+  razas: []
 };

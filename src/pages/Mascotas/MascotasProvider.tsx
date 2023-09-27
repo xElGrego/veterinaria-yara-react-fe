@@ -9,16 +9,24 @@ import { IMascota, MascotaRequest } from "../../domain/Mascotas/IMascota";
 import useMascotas from "./hooks/useMascotas";
 import { IPaginationButtonsProps } from "../../shared/Components/PaginationButtons";
 import moment from "moment";
+import useRazas from "../../shared/hooks/useRazas";
+import { RazasResponse } from "../../domain/Razas/Razas";
 
 export interface IMascotasContext {
   Mascotas: IMascota[];
   setMascotas: Dispatch<SetStateAction<MascotaRequest>>;
   IsLoading: boolean;
+  dataLoaded: boolean;
   TotalDocs: number;
   ActualPage: number;
   TotalPage: number;
   resetPagination: () => void;
   buttons: IPaginationButtonsProps;
+  RazasList: RazasResponse[];
+  GetRazasOptions: () => {
+    title: string;
+    value: string;
+  }[];
 }
 
 const MascotaContext = createContext({});
@@ -36,6 +44,8 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const [mascotas, setMascotas] = useState<MascotaRequest>(initialRequest);
+
+  const { GetRazasOptions, dataLoaded, RazasList } = useRazas();
 
   const {
     Mascotas,
@@ -58,6 +68,9 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
     TotalPage: totalPage,
     resetPagination,
     TotalDocs,
+    GetRazasOptions,
+    dataLoaded,
+    RazasList,
     buttons: {
       nextPageTable: () => {
         if (ActualPage < totalPage) {

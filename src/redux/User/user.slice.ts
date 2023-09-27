@@ -10,15 +10,15 @@ export const userSlice = createSlice({
       state.user = { ...state.user, nombres, apellidos, correo, token, rol };
       localStorage.setItem("user", JSON.stringify(state.user));
     },
-    loadEmpresa: (state, action) => {
+    loadRaza: (state, action) => {
       if (action.payload != null) {
-        if (action.payload.empresas && action.payload.empresas.length > 0) {
-          state.empresas = action.payload.empresas;
+        if (action.payload.razas && action.payload.razas.length > 0) {
+          state.razas = action.payload.razas;
         }
       }
     },
   },
 });
 
-export const { saveUser, loadEmpresa } = userSlice.actions;
+export const { saveUser, loadRaza } = userSlice.actions;
 export default userSlice.reducer;

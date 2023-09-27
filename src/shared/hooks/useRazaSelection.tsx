@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { InputSelectOptionsEmpresa } from "../Components/Inputs/InputRaza";
 
-export function useEmpresaSelection() {
+export function useRazaSelection() {
   const [selectedOption, setSelectedOption] =
     useState<InputSelectOptionsEmpresa>({
       value: "0",
@@ -10,18 +10,14 @@ export function useEmpresaSelection() {
 
   const handleSelectChange = (newValue: InputSelectOptionsEmpresa | null) => {
     if (newValue) {
-      window.localStorage.setItem("empresaSelected", newValue.value || "");
+      window.localStorage.setItem("razaSelected", newValue.value || "");
       if (newValue.label?.includes("-")) {
         var index = newValue.label?.lastIndexOf("-");
         const result1 = newValue.label?.substr(index + 1).trim();
-        window.localStorage.setItem("empresaSelectedRuc", result1.trim() || "");
+        window.localStorage.setItem("razaSelectedRuc", result1.trim() || "");
       } else {
-        window.localStorage.setItem(
-          "empresaSelectedRuc",
-          newValue.label! || ""
-        );
+        window.localStorage.setItem("razaSelectedRuc", newValue.label! || "");
       }
-
       try {
         setSelectedOption(newValue);
         if (newValue.value === "todos") {

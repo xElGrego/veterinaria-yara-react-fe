@@ -2,42 +2,37 @@ import { useEffect, useState } from "react";
 import useGetRazas from "../../application/Razas/getRazas";
 import { RazasResponse } from "../../domain/Razas/Razas";
 import { useDispatch } from "react-redux";
-import { loadEmpresa } from "../../redux/User/user.slice";
+import { loadRaza } from "../../redux/User/user.slice";
 
 
 const useRazas = () => {
-    const dispatch = useDispatch();
-
-    const [EmpresaList, setEmpresaList] = useState<RazasResponse[]>([]);
-    const [dataLoaded, setDataLoaded] = useState(false);
-    const [IsLoading, setIsLoading] = useState<boolean>(true);
-
 
     const { getAllRazas } = useGetRazas();
 
+    const dispatch = useDispatch();
 
+    const [RazasList, setRazasList] = useState<RazasResponse[]>([]);
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [IsLoading, setIsLoading] = useState<boolean>(true);
 
-    const GetEmpresasOptions = (): any => {
+    const GetRazasOptions = (): { title: string; value: string }[] => {
         try {
-            return EmpresaList.map((el) => {
-                return {
-                    title: el.nombre || "",
-                    value: el.idRaza || "",
-                };
-            });
+            return RazasList.map((el: RazasResponse) => ({
+                title: el.nombre || "",
+                value: el.idRaza || "",
+            }));
         } catch (error) {
+            return [];
         }
     };
-
-
 
     useEffect(() => {
         (async () => {
             try {
                 setIsLoading(true);
                 const data = await getAllRazas();
-                setEmpresaList([...data]);
-                dispatch(loadEmpresa({ empresas: data }));
+                setRazasList([...data]);
+                dispatch(loadRaza({ razas: data }));
                 setDataLoaded(true);
                 setIsLoading(false);
 
@@ -48,8 +43,8 @@ const useRazas = () => {
     }, []);
 
     return {
-        GetEmpresasOptions,
-        EmpresaList,
+        GetRazasOptions,
+        RazasList,
         dataLoaded,
         IsLoading
     };

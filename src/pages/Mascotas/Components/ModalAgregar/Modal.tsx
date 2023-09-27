@@ -1,13 +1,14 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Button } from "../Button";
 import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
 import { useFormContext } from "react-hook-form";
 import { InputText } from "../../../../shared/Components/InputText";
-import InputEmpresa from "../../../../shared/Components/Inputs/InputRaza";
 import useRazas from "../../../../shared/hooks/useRazas";
 import { Spinner } from "../../../../shared/Components/Spinner";
 import usePostMascotas from "../../../../application/Mascotas/postMascotas";
 import { toast } from "react-toastify";
+import { InputRaza } from "../../../../shared/Components/Inputs/InputRaza";
+import MascotaContext, { IMascotasContext } from "../../MascotasProvider";
 
 export const ContentModal: FC = () => {
   const {
@@ -20,11 +21,9 @@ export const ContentModal: FC = () => {
 
   const { postMascotas } = usePostMascotas();
 
-  const {
-    IsLoading: IsLoadingEmpresas,
-    dataLoaded,
-    GetEmpresasOptions,
-  } = useRazas();
+  const { dataLoaded, GetRazasOptions } = useContext(
+    MascotaContext
+  ) as IMascotasContext;
 
   const handlerAgregar = async () => {
     try {
@@ -47,14 +46,10 @@ export const ContentModal: FC = () => {
     <form onSubmit={handleSubmit(handlerAgregar)} className="py-4">
       <div>
         {dataLoaded ? (
-          <InputEmpresa
-            name="Empresa"
-            title="Empresa / Contribuyente:"
-            options={
-              IsLoadingEmpresas
-                ? [{ value: "", title: "Cargando..." }]
-                : [{ title: "Todos", value: "XD" }, ...GetEmpresasOptions()]
-            }
+          <InputRaza
+            name="Razas"
+            title="Razas"
+            options={[{ title: "Todos", value: "000" }, ...GetRazasOptions()]}
           />
         ) : (
           <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">

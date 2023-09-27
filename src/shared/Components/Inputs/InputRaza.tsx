@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { useEmpresaSelection } from "../../hooks/useRazaSelection";
-import { useEffect } from "react";
+import { useRazaSelection } from "../../hooks/useRazaSelection";
+import { FC, useEffect } from "react";
 import { RazasResponse } from "../../../domain/Razas/Razas";
 import AsyncSelect from "react-select/async";
 
@@ -18,49 +18,47 @@ interface PropsInputSelect {
   order?: string;
 }
 
-const InputEmpresa = (props: PropsInputSelect) => {
-  const { handleSelectChange, selectedOption } = useEmpresaSelection();
+export const InputRaza: FC<PropsInputSelect> = (props) => {
+  const { handleSelectChange, selectedOption } = useRazaSelection();
 
-  const empresas = useSelector((store: any) => store.user.empresas);
-  const empresaSelected = useSelector((store: any) => store.user.empresa);
+  const razas = useSelector((store: any) => store.user.razas);
+  const razaSelected = useSelector((store: any) => store.user.raza);
 
   if (!props.name) return null;
 
   useEffect(() => {
-    if (empresaSelected != null) {
-      selectedOption.label = "HOLA";
-      selectedOption.value = empresaSelected.idRaza;
+    if (razaSelected != null) {
+      selectedOption.label = "";
+      selectedOption.value = razaSelected.idRaza;
       handleSelectChange(selectedOption);
     }
-  }, [empresaSelected, selectedOption]);
+  }, [razaSelected, selectedOption]);
 
   const loadOptions = (
     inputValue: string,
     callback: (options: InputSelectOptionsEmpresa[]) => void
   ) => {
     if (inputValue) {
-      const filteredEmpresas = empresas.filter(
-        (empresa: RazasResponse) =>
-          empresa.descripcion
-            .toLowerCase()
-            .includes(inputValue.toLowerCase()) ||
-          empresa.descripcion
+      const filteredRazas = razas.filter(
+        (raza: RazasResponse) =>
+          raza.descripcion.toLowerCase().includes(inputValue.toLowerCase()) ||
+          raza.descripcion
             .toString()
             .toLowerCase()
             .includes(inputValue.toLowerCase())
       );
 
-      const options: InputSelectOptionsEmpresa[] = filteredEmpresas.map(
-        (empresa: RazasResponse) => ({
-          value: empresa.idRaza,
-          label: empresa.nombre,
+      const options: InputSelectOptionsEmpresa[] = filteredRazas.map(
+        (raza: RazasResponse) => ({
+          value: raza.idRaza,
+          label: raza.nombre,
         })
       );
 
       callback(options);
     } else {
       const options: InputSelectOptionsEmpresa[] = [
-        ...empresas.map((empresa: RazasResponse) => ({
+        ...razas.map((empresa: RazasResponse) => ({
           value: empresa.idRaza,
           label: empresa.nombre,
         })),
@@ -90,5 +88,3 @@ const InputEmpresa = (props: PropsInputSelect) => {
     </div>
   );
 };
-
-export default InputEmpresa;

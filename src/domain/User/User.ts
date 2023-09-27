@@ -6,5 +6,5 @@ export interface User {
   correo: string;
   token: string;
   rol: string;
-  empresas: RazasResponse[],
+  razas: RazasResponse[],
 }

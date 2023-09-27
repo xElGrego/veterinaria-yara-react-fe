@@ -3,10 +3,14 @@ import { Spinner } from "../../../shared/Components/Spinner";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
+import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
+
 export const MascotasList: FC = () => {
   const { Mascotas, IsLoading, ActualPage, TotalDocs, buttons } = useContext(
     MascotaContext
   ) as IMascotasContext;
+
+  const obtenerRazonSocial = useRazonSocialPorIdEmpresa();
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
@@ -82,7 +86,7 @@ export const MascotasList: FC = () => {
                             {el.peso}
                           </td>
                           <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
-                            {el.idRaza}
+                            {obtenerRazonSocial(el.idRaza)}
                           </td>
                           <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el!.fechaIngreso?.toString()}
