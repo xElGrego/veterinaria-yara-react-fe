@@ -16,6 +16,7 @@ export interface LoginService {
 
 export interface MascotasServices {
   getMascotas(req: MascotasRequest): Promise<ItemsPaginationResponse<MascotasResponse>>
+  postMascota(req: IAddMascotaRequest): Promise<IAddMascotaResponse>
 }
 
 export interface EstadosServices {

@@ -18,18 +18,19 @@ interface PropsInputSelect {
   order?: string;
 }
 
-const InputEmpresa = (props: PropsInputSelect) => {
+export const InputEmpresa = (props: PropsInputSelect) => {
   const { handleSelectChange, selectedOption } = useEmpresaSelection();
 
-  const empresas = useSelector((store: any) => store.user.empresas);
-  const empresaSelected = useSelector((store: any) => store.user.empresa);
+  const empresas = useSelector((store: any) => store.Auth.empresas);
+  const empresaSelected = useSelector((store: any) => store.Auth.empresa);
 
   if (!props.name) return null;
 
   useEffect(() => {
     if (empresaSelected != null) {
-      selectedOption.label = "HOLA";
-      selectedOption.value = empresaSelected.idRaza;
+      selectedOption.label =
+        empresaSelected.ruc + " - " + empresaSelected.razonSocial;
+      selectedOption.value = empresaSelected.idEmpresa;
       handleSelectChange(selectedOption);
     }
   }, [empresaSelected, selectedOption]);
@@ -60,11 +61,13 @@ const InputEmpresa = (props: PropsInputSelect) => {
       callback(options);
     } else {
       const options: InputSelectOptionsEmpresa[] = [
+        { value: "todos", label: "TODOS", isDefaultValue: true },
         ...empresas.map((empresa: RazasResponse) => ({
           value: empresa.idRaza,
           label: empresa.nombre,
         })),
       ];
+
       callback(options);
     }
   };
@@ -81,7 +84,6 @@ const InputEmpresa = (props: PropsInputSelect) => {
         loadingMessage={() => "Cargando..."}
         cacheOptions
         defaultOptions
-        placeholder="Seleccionen una mascota"
         loadOptions={loadOptions}
         onChange={handleSelectChange}
         className="flex-1 w-full text-sm  "
@@ -90,5 +92,3 @@ const InputEmpresa = (props: PropsInputSelect) => {
     </div>
   );
 };
-
-export default InputEmpresa;

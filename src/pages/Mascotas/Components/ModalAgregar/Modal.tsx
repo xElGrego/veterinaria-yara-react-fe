@@ -1,9 +1,13 @@
 import { FC } from "react";
 import { Button } from "../Button";
 import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { InputText } from "../../../../shared/Components/InputText";
-import { InputRaza } from "../../../../shared/Components/Inputs/InputRaza";
+import InputEmpresa from "../../../../shared/Components/Inputs/InputRaza";
+import useRazas from "../../../../shared/hooks/useRazas";
+import { Spinner } from "../../../../shared/Components/Spinner";
+import usePostMascotas from "../../../../application/Mascotas/postMascotas";
+import { toast } from "react-toastify";
 
 export const ContentModal: FC = () => {
   const {
@@ -11,42 +15,53 @@ export const ContentModal: FC = () => {
     register,
     getValues,
     reset,
-    control,
     formState: { errors },
   } = useFormContext<IAddMascotaRequest>();
 
-  const handlerAgregar = () => {
-    const params: IAddMascotaRequest = { ...getValues() };
-    console.log("Agregar" + JSON.stringify(params));
+  const { postMascotas } = usePostMascotas();
+
+  const {
+    IsLoading: IsLoadingEmpresas,
+    dataLoaded,
+    GetEmpresasOptions,
+  } = useRazas();
+
+  const handlerAgregar = async () => {
+    try {
+      const params: IAddMascotaRequest = { ...getValues() };
+      params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16"; //! SETEADO
+      params.idRaza = localStorage.getItem("empresaSelected")!;
+      var res = await postMascotas(params);
+      toast.success(res.response);
+      reset();
+    } catch (error) {
+      toast.error("Error al ingresar a la mascota");
+    }
   };
 
   const handlerLimpiar = () => {
     reset();
   };
 
-  const idRaza = useWatch({
-    control,
-    name: "idRaza", // Nombre del campo
-    defaultValue: "", // Valor por defecto si es necesario
-  });
-
   return (
     <form onSubmit={handleSubmit(handlerAgregar)} className="py-4">
       <div>
-        <Controller
-          name="idRaza"
-          control={control}
-          render={({ field }) => (
-            <InputRaza
-              {...field}
-              name="idRaza"
-              title="Raza"
-              register={register}
-            />
-          )}
-        />
-
-        <p>Valor seleccionado: {idRaza}</p>
+        {dataLoaded ? (
+          <InputEmpresa
+            name="Empresa"
+            title="Empresa / Contribuyente:"
+            options={
+              IsLoadingEmpresas
+                ? [{ value: "", title: "Cargando..." }]
+                : [{ title: "Todos", value: "XD" }, ...GetEmpresasOptions()]
+            }
+          />
+        ) : (
+          <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">
+            <Spinner class="w-5 h-5 text-blue-600 dark:text-white" />
+            Cargando empresas...
+          </div>
+        )}
 
         <InputText
           label="Nombre"
