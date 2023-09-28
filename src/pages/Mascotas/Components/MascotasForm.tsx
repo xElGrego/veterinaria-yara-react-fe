@@ -30,6 +30,7 @@ export const MascotasForm: FC = () => {
     IsEditing,
     isOpen,
     setIsOpen,
+    setIdMascotaSeleccionada,
   } = useContext(MascotaContext) as IMascotasContext;
 
   const handlerConsultar = async () => {
@@ -49,6 +50,7 @@ export const MascotasForm: FC = () => {
   };
 
   const toggleModal = () => {
+    setIdMascotaSeleccionada(null);
     setIsOpen(!isOpen);
   };
 

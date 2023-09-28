@@ -25,7 +25,7 @@ export const ContentModal: FC = () => {
     GetRazasOptions,
     Mascotas,
     IsEditing,
-    idMascotaSeleccionada, // Nuevo estado para el ID de la mascota seleccionada
+    idMascotaSeleccionada,
   } = useContext(MascotaContext) as IMascotasContext;
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export const ContentModal: FC = () => {
       const mascotaEditando = Mascotas.find(
         (m) => m.idMascota === idMascotaSeleccionada
       );
+      debugger;
       if (mascotaEditando) {
         reset(mascotaEditando);
       }
