@@ -1,4 +1,3 @@
-import { RazasResponse } from "../Razas/Razas";
 
 export interface User {
   nombres: string;
@@ -6,5 +5,4 @@ export interface User {
   correo: string;
   token: string;
   rol: string;
-  razas: RazasResponse[],
 }
