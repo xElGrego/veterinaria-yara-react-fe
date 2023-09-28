@@ -1,10 +1,11 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import { Spinner } from "../../../shared/Components/Spinner";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
 import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
-
+import moment from "moment";
+import { DropDownMascota } from "./ListDropDown";
 export const MascotasList: FC = () => {
   const { Mascotas, IsLoading, ActualPage, TotalDocs, buttons } = useContext(
     MascotaContext
@@ -89,7 +90,13 @@ export const MascotasList: FC = () => {
                             {obtenerRazonSocial(el.idRaza)}
                           </td>
                           <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
-                            {el!.fechaIngreso?.toString()}
+                            {moment(el.fechaIngreso).format(
+                              "DD-MM-YYYY HH:mm:ss"
+                            )}
+                          </td>
+
+                          <td className="py-3.5 pl-4 pr-3 sm:pl-6 ">
+                            <DropDownMascota field={el} />
                           </td>
                         </tr>
                       ))
