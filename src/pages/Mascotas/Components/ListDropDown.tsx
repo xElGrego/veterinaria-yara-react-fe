@@ -1,7 +1,8 @@
 import { Transition } from "@headlessui/react";
 import useComponenModal from "../hooks/useModal";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
-import { FC } from "react";
+import { FC, useContext } from "react";
+import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 
 interface DropDownMascotaProps {
   field: IMascota;
@@ -11,8 +12,16 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
   const { handleOptionSelect, toggleDropdown, dropdownRef, isOpen, setIsOpen } =
     useComponenModal();
 
+  const {
+    setIsOpen: OpenModal,
+    setIsEditing,
+    setIdMascotaSeleccionada,
+  } = useContext(MascotaContext) as IMascotasContext;
+
   const handlerEditar = () => {
-    console.log("Editar");
+    setIdMascotaSeleccionada(field.idMascota);
+    setIsEditing(true);
+    OpenModal(true);
     setIsOpen(false);
   };
 
@@ -73,7 +82,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
               </li>
               <li className="">
                 <button
-                  className="flex items-center gap-x-1 my-2  mx-2 "
+                  className="w-full flex items-center gap-x-1 my-2  mx-2 "
                   onClick={handlerEditar}
                 >
                   <svg
@@ -94,7 +103,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
                 </button>
               </li>
               <li className="">
-                <div className="flex items-center gap-x-1 my-2  mx-2">
+                <div className="w-full flex items-center gap-x-1 my-2  mx-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

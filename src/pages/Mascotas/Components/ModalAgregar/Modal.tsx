@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import { Button } from "../Button";
 import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
 import { useFormContext } from "react-hook-form";
@@ -20,9 +20,24 @@ export const ContentModal: FC = () => {
 
   const { postMascotas } = usePostMascotas();
 
-  const { dataLoaded, GetRazasOptions, IsEditing } = useContext(
-    MascotaContext
-  ) as IMascotasContext;
+  const {
+    dataLoaded,
+    GetRazasOptions,
+    Mascotas,
+    IsEditing,
+    idMascotaSeleccionada, // Nuevo estado para el ID de la mascota seleccionada
+  } = useContext(MascotaContext) as IMascotasContext;
+
+  useEffect(() => {
+    if (IsEditing && idMascotaSeleccionada) {
+      const mascotaEditando = Mascotas.find(
+        (m) => m.idMascota === idMascotaSeleccionada
+      );
+      if (mascotaEditando) {
+        reset(mascotaEditando);
+      }
+    }
+  }, [IsEditing, idMascotaSeleccionada, reset, Mascotas]);
 
   const handlerAgregar = async () => {
     try {

@@ -19,12 +19,17 @@ export interface IMascotasContext {
   setMascotas: Dispatch<SetStateAction<MascotaRequest>>;
   IsLoading: boolean;
   dataLoaded: boolean;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
   TotalDocs: number;
   ActualPage: number;
   TotalPage: number;
   resetPagination: () => void;
+  openAddModal: () => void;
   buttons: IPaginationButtonsProps;
   RazasList: RazasResponse[];
+  idMascotaSeleccionada: string | null; // Nuevo estado para el ID de la mascota seleccionada
+  setIdMascotaSeleccionada: Dispatch<SetStateAction<string | null>>; // Nuevo estado para el ID de la mascota seleccionada
   GetRazasOptions: () => {
     title: string;
     value: string;
@@ -48,7 +53,17 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   const [mascotas, setMascotas] = useState<MascotaRequest>(initialRequest);
   const { GetRazasOptions, dataLoaded, RazasList } = useRazas();
 
+  const [isOpen, setIsOpen] = useState(false);
   const [IsEditing, setIsEditing] = useState<boolean>(false);
+
+  const [idMascotaSeleccionada, setIdMascotaSeleccionada] = useState<
+    string | null
+  >(null);
+
+  const openAddModal = () => {
+    setIsEditing(false);
+    setIsOpen(true);
+  };
 
   const {
     Mascotas,
@@ -76,6 +91,11 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
     dataLoaded,
     RazasList,
     IsEditing,
+    isOpen,
+    setIsOpen,
+    openAddModal,
+    idMascotaSeleccionada,
+    setIdMascotaSeleccionada,
     buttons: {
       nextPageTable: () => {
         if (ActualPage < totalPage) {

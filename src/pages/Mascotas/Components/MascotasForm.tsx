@@ -14,19 +14,23 @@ export const MascotasForm: FC = () => {
   const { onError } = useToastify();
   const { EstadosList, IsLoading: loadingEstados } = useEstados();
 
-  const [isOpen, setIsOpen] = useState(false);
-
   const {
     handleSubmit,
     register,
     reset,
     getValues,
+
     formState: { errors },
   } = useFormContext<MascotaRequest>();
 
-  const { setMascotas, Mascotas, resetPagination, IsEditing } = useContext(
-    MascotaContext
-  ) as IMascotasContext;
+  const {
+    setMascotas,
+    Mascotas,
+    resetPagination,
+    IsEditing,
+    isOpen,
+    setIsOpen,
+  } = useContext(MascotaContext) as IMascotasContext;
 
   const handlerConsultar = async () => {
     try {
@@ -50,13 +54,16 @@ export const MascotasForm: FC = () => {
 
   return (
     <>
-      <ModalGeneral
-        isOpen={isOpen}
-        onClose={toggleModal}
-        title={IsEditing == true ? "Editando mascota" : "Agregando mascota"}
-      >
-        <ModalMascotaIndex />
-      </ModalGeneral>
+      {isOpen && (
+        <ModalGeneral
+          title={IsEditing == true ? "Editando mascota" : "Agregando mascota"}
+          isOpen={isOpen}
+          onClose={toggleModal}
+        >
+          <ModalMascotaIndex />
+        </ModalGeneral>
+      )}
+
       <form onSubmit={handleSubmit(handlerConsultar)} className="py-4">
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
           <InputText
