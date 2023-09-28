@@ -8,8 +8,13 @@ interface DropDownMascotaProps {
 }
 
 export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
-  const { handleOptionSelect, toggleDropdown, dropdownRef, isOpen } =
+  const { handleOptionSelect, toggleDropdown, dropdownRef, isOpen, setIsOpen } =
     useComponenModal();
+
+  const handlerEditar = () => {
+    console.log("Editar");
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -67,7 +72,10 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
                 Detalle
               </li>
               <li className="">
-                <div className="flex items-center gap-x-1 my-2  mx-2 ">
+                <button
+                  className="flex items-center gap-x-1 my-2  mx-2 "
+                  onClick={handlerEditar}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -83,7 +91,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
                     />
                   </svg>
                   Editar
-                </div>
+                </button>
               </li>
               <li className="">
                 <div className="flex items-center gap-x-1 my-2  mx-2">

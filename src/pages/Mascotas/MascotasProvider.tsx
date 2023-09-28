@@ -13,6 +13,8 @@ import useRazas from "../../shared/hooks/useRazas";
 import { RazasResponse } from "../../domain/Razas/Razas";
 
 export interface IMascotasContext {
+  IsEditing: boolean;
+  setIsEditing: (value: boolean) => void;
   Mascotas: IMascota[];
   setMascotas: Dispatch<SetStateAction<MascotaRequest>>;
   IsLoading: boolean;
@@ -44,8 +46,9 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const [mascotas, setMascotas] = useState<MascotaRequest>(initialRequest);
-
   const { GetRazasOptions, dataLoaded, RazasList } = useRazas();
+
+  const [IsEditing, setIsEditing] = useState<boolean>(false);
 
   const {
     Mascotas,
@@ -63,6 +66,7 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   const storage: IMascotasContext = {
     Mascotas,
     IsLoading,
+    setIsEditing,
     ActualPage,
     setMascotas,
     TotalPage: totalPage,
@@ -71,6 +75,7 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
     GetRazasOptions,
     dataLoaded,
     RazasList,
+    IsEditing,
     buttons: {
       nextPageTable: () => {
         if (ActualPage < totalPage) {

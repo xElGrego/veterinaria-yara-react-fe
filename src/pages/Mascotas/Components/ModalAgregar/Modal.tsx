@@ -20,7 +20,7 @@ export const ContentModal: FC = () => {
 
   const { postMascotas } = usePostMascotas();
 
-  const { dataLoaded, GetRazasOptions } = useContext(
+  const { dataLoaded, GetRazasOptions, IsEditing } = useContext(
     MascotaContext
   ) as IMascotasContext;
 
@@ -53,7 +53,7 @@ export const ContentModal: FC = () => {
         ) : (
           <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">
             <Spinner class="w-5 h-5 text-blue-600 dark:text-white" />
-            Cargando empresas...
+            Cargando mascotas...
           </div>
         )}
 

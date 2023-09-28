@@ -24,7 +24,7 @@ export const MascotasForm: FC = () => {
     formState: { errors },
   } = useFormContext<MascotaRequest>();
 
-  const { setMascotas, Mascotas, resetPagination } = useContext(
+  const { setMascotas, Mascotas, resetPagination, IsEditing } = useContext(
     MascotaContext
   ) as IMascotasContext;
 
@@ -50,7 +50,11 @@ export const MascotasForm: FC = () => {
 
   return (
     <>
-      <ModalGeneral isOpen={isOpen} onClose={toggleModal} title={"Mascota"}>
+      <ModalGeneral
+        isOpen={isOpen}
+        onClose={toggleModal}
+        title={IsEditing == true ? "Editando mascota" : "Agregando mascota"}
+      >
         <ModalMascotaIndex />
       </ModalGeneral>
       <form onSubmit={handleSubmit(handlerConsultar)} className="py-4">
