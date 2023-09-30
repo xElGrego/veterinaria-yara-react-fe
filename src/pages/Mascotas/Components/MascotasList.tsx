@@ -1,6 +1,5 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 import { Checkbox } from "antd";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
 import moment from "moment";
 import { DropDownMascota } from "./ListDropDown";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
@@ -9,62 +8,20 @@ import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
 
 export const MascotasList: FC = () => {
-  type ObjectSend = {
-    idMascota: Guid;
-    nombre: string;
-    edad: number;
-  };
-
-  const { Mascotas, ActualPage, TotalDocs, buttons } = useContext(
-    MascotaContext
-  ) as IMascotasContext;
+  const {
+    Mascotas,
+    ActualPage,
+    TotalDocs,
+    buttons,
+    checked,
+    indeterminate,
+    checkAll,
+    selectedAll,
+    onCheckChange,
+    onCheckAllChange,
+  } = useContext(MascotaContext) as IMascotasContext;
 
   const obtenerRazonSocial = useRazonSocialPorIdEmpresa();
-
-  const [checked, setChecked] = useState<ObjectSend[]>([]);
-  const [indeterminate, setIndeterminate] = useState<boolean>(false);
-  const [checkAll, setCheckAll] = useState<boolean>(false);
-  const [selectedAll, setSelectedAll] = useState<boolean>(false);
-
-  const onCheckChange = (value: ObjectSend) => {
-    const newChecked = [...checked];
-    const index = newChecked.findIndex(
-      (item) => item.idMascota === value.idMascota
-    );
-
-    if (index === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(index, 1);
-    }
-
-    setChecked(newChecked);
-    setIndeterminate(
-      newChecked.length > 0 && newChecked.length !== Mascotas.length
-    );
-    setCheckAll(newChecked.length === Mascotas.length);
-  };
-
-  const onCheckAllChange = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      const allObjects = Mascotas.map((item) => ({
-        idMascota: item.idMascota,
-        nombre: item.nombre,
-        edad: item.edad,
-      }));
-      setChecked(allObjects);
-      setSelectedAll(true);
-    } else {
-      setChecked([]);
-      setSelectedAll(false);
-    }
-    setCheckAll(e.target.checked);
-  };
-
-  useEffect(() => {
-    setIndeterminate(checked.length > 0 && checked.length !== Mascotas.length);
-    setCheckAll(checked.length === Mascotas.length);
-  }, [checked, Mascotas]);
 
   const handlePdf = () => {
     console.log("PDF" + checked);
