@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RazasResponse } from "../../domain/Razas/Razas";
 
 const useRazonSocialPorIdEmpresa = () => {
-    const razas = useSelector((store: any) => store.user.razas);
+    const razas = useSelector((store: any) => store.razas.razas);
     const obtenerRazonSocialPorId = (idRaza: Guid) => {
         const razaEncontrada = razas.find((empresa: RazasResponse) => empresa.idRaza === idRaza);
         return razaEncontrada ? razaEncontrada.nombre : "Empresa no encontrada";

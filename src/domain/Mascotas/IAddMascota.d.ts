@@ -1,5 +1,6 @@
 export interface IAddMascotaRequest {
     idUsuario?: Guid;
+    idMascota?: Guid;
     idRaza?: Guid;
     nombre: string;
     mote?: string;

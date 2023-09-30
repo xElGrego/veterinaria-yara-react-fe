@@ -28,9 +28,15 @@ const useMascotasServices = (): MascotasServices => {
         return res.data.data;
     }
 
+    const putMascota = async (req: IAddMascotaRequest): Promise<IAddMascotaResponse> => {
+        let res = await MascotaClient.put("/veterinaria-yara/editar-mascota", { ...req });
+        return res.data.data;
+    }
+
     return {
         getMascotas,
-        postMascota
+        postMascota,
+        putMascota
     }
 }
 

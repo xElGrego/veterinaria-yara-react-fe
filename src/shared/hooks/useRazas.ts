@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useGetRazas from "../../application/Razas/getRazas";
 import { RazasResponse } from "../../domain/Razas/Razas";
 import { useDispatch } from "react-redux";
-import { loadRaza } from "../../redux/User/user.slice";
+import { loadRaza } from "../../redux/Razas/razas.slice";
 
 
 const useRazas = () => {

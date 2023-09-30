@@ -19,7 +19,6 @@ export const MascotasForm: FC = () => {
     register,
     reset,
     getValues,
-
     formState: { errors },
   } = useFormContext<MascotaRequest>();
 

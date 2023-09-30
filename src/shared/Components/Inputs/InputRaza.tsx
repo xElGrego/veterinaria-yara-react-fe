@@ -21,8 +21,8 @@ interface PropsInputSelect {
 export const InputRaza: FC<PropsInputSelect> = (props) => {
   const { handleSelectChange, selectedOption } = useRazaSelection();
 
-  const razas = useSelector((store: any) => store.user.razas);
-  const razaSelected = useSelector((store: any) => store.user.raza);
+  const razas = useSelector((store: any) => store.razas.razas);
+  const razaSelected = useSelector((store: any) => store.razas.raza);
 
   if (!props.name) return null;
 

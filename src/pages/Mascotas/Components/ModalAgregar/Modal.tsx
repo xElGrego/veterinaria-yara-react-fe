@@ -8,6 +8,7 @@ import usePostMascotas from "../../../../application/Mascotas/postMascotas";
 import { toast } from "react-toastify";
 import { InputRaza } from "../../../../shared/Components/Inputs/InputRaza";
 import MascotaContext, { IMascotasContext } from "../../MascotasProvider";
+import usePutMascotas from "../../../../application/Mascotas/putMascota";
 
 export const ContentModal: FC = () => {
   const {
@@ -19,6 +20,7 @@ export const ContentModal: FC = () => {
   } = useFormContext<IAddMascotaRequest>();
 
   const { postMascotas } = usePostMascotas();
+  const { putMascotas } = usePutMascotas();
 
   const {
     dataLoaded,
@@ -33,14 +35,13 @@ export const ContentModal: FC = () => {
       const mascotaEditando = Mascotas.find(
         (m) => m.idMascota === idMascotaSeleccionada
       );
-      debugger;
       if (mascotaEditando) {
         reset(mascotaEditando);
       }
     }
   }, [IsEditing, idMascotaSeleccionada, reset, Mascotas]);
 
-  const handlerAgregar = async () => {
+  /*   const handlerAgregar = async () => {
     try {
       const params: IAddMascotaRequest = { ...getValues() };
       params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16"; //! SETEADO
@@ -52,13 +53,34 @@ export const ContentModal: FC = () => {
       toast.error("Error al ingresar a la mascota");
     }
   };
+ */
+
+  const handlerAgregarEditar = async () => {
+    try {
+      const params: IAddMascotaRequest = { ...getValues() };
+      params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16"; //! SETEADO
+      params.idRaza = localStorage.getItem("empresaSelected")!;
+
+      if (IsEditing && idMascotaSeleccionada) {
+        params.idMascota = idMascotaSeleccionada;
+        var res = await putMascotas(params);
+        toast.success(res.response);
+      } else {
+        var res = await postMascotas(params);
+        toast.success(res.response);
+        reset();
+      }
+    } catch (error) {
+      toast.error("Error al ingresar a la mascota");
+    }
+  };
 
   const handlerLimpiar = () => {
     reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(handlerAgregar)} className="py-4">
+    <form onSubmit={handleSubmit(handlerAgregarEditar)} className="py-4">
       <div>
         {dataLoaded ? (
           <InputRaza
