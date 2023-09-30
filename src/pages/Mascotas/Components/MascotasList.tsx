@@ -1,4 +1,11 @@
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Spinner } from "../../../shared/Components/Spinner";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
@@ -6,6 +13,9 @@ import { PaginationButtons } from "../../../shared/Components/PaginationButtons"
 import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
 import moment from "moment";
 import { DropDownMascota } from "./ListDropDown";
+import { Checkbox, List } from "antd";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
+
 export const MascotasList: FC = () => {
   const { Mascotas, IsLoading, ActualPage, TotalDocs, buttons } = useContext(
     MascotaContext
@@ -13,9 +23,89 @@ export const MascotasList: FC = () => {
 
   const obtenerRazonSocial = useRazonSocialPorIdEmpresa();
 
+  interface Item {
+    id: number;
+    title: string;
+    name: string;
+  }
+
+  const data: Item[] = [
+    {
+      id: 1,
+      title: "Ant Design Title 1",
+      name: "nam1",
+    },
+    {
+      id: 2,
+      title: "Ant Design Title 2",
+      name: "nam2",
+    },
+    {
+      id: 3,
+      title: "Ant Design Title3",
+      name: "nam3",
+    },
+    {
+      id: 4,
+      title: "Ant Design Title 4",
+      name: "nam4",
+    },
+  ];
+
+  const [checked, setChecked] = useState<string[]>([]);
+  const [indeterminate, setIndeterminate] = useState<boolean>(false);
+  const [checkAll, setCheckAll] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIndeterminate(checked.length > 0 && checked.length !== data.length);
+    setCheckAll(checked.length === data.length);
+  }, [checked]);
+
+  const onCheckAllChange = (e: CheckboxChangeEvent) => {
+    setChecked(e.target.checked ? data.map((item) => item.title) : []);
+    setCheckAll(e.target.checked);
+  };
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
       <div className=" flex flex-col ">
+        <div>
+          <Checkbox
+            indeterminate={indeterminate}
+            onChange={onCheckAllChange}
+            checked={checkAll}
+          >
+            Check all
+          </Checkbox>
+          <Checkbox.Group
+            style={{ width: "100%" }}
+            value={checked}
+            onChange={(checkedValues) => {
+              setChecked(checkedValues as string[]);
+            }}
+          >
+            <List
+              itemLayout="vertical"
+              dataSource={data}
+              renderItem={(item: Item) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Checkbox value={item.title} />}
+                    title={
+                      <a href="https://ant.design">
+                        {item.title} - {item.id}{" "}
+                      </a>
+                    }
+                    description="1"
+                  />
+                </List.Item>
+              )}
+            />
+          </Checkbox.Group>
+          <div style={{ marginTop: 20 }}>
+            <b>Selecting:</b> {checked.join(", ")}
+          </div>
+        </div>
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
             <div className="ring-1 ring-black    max-h-[65vh] overflow-x-auto w-auto  ring-opacity-5 md:rounded-lg  shadow bg-white dark:bg-gray-900  ">
