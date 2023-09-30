@@ -3,12 +3,16 @@ import useComponenModal from "../hooks/useModal";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { FC, useContext } from "react";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
+import { useDispatch } from "react-redux";
+import { selectRaza } from "../../../redux/Razas/razas.slice";
 
 interface DropDownMascotaProps {
   field: IMascota;
 }
 
 export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
+  const dispatch = useDispatch();
+
   const { handleOptionSelect, toggleDropdown, dropdownRef, isOpen, setIsOpen } =
     useComponenModal();
 
@@ -19,6 +23,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
   } = useContext(MascotaContext) as IMascotasContext;
 
   const handlerEditar = () => {
+    dispatch(selectRaza(field.idRaza));
     setIdMascotaSeleccionada(field.idMascota);
     setIsEditing(true);
     OpenModal(true);

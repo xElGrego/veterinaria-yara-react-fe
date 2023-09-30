@@ -12,9 +12,18 @@ export const razaSlice = createSlice({
                     state.razas = action.payload.razas;
                 }
             }
+        },
+        selectRaza: (state, action) => {
+            if (action.payload != null) {
+                state.razaSelected = state.razas.find(
+                    (obj) => obj.idRaza === action.payload
+                );
+            } else {
+                state.razaSelected = undefined;
+            }
         }
     }
 });
 
-export const { loadRaza } = razaSlice.actions;
+export const { loadRaza, selectRaza } = razaSlice.actions;
 export default razaSlice.reducer;

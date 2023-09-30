@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { InputSelectOptionsEmpresa } from "../Components/Inputs/InputRaza";
+import { useDispatch } from "react-redux";
+import { selectRaza } from "../../redux/Razas/razas.slice";
 
 export function useRazaSelection() {
   const [selectedOption, setSelectedOption] =
@@ -8,8 +10,11 @@ export function useRazaSelection() {
       label: "Selecciona una mascota",
     });
 
+  const dispatch = useDispatch();
+
   const handleSelectChange = (newValue: InputSelectOptionsEmpresa | null) => {
     if (newValue) {
+      dispatch(selectRaza(newValue.value || ""));
       window.localStorage.setItem("razaSelected", newValue.value || "");
       if (newValue.label?.includes("-")) {
         var index = newValue.label?.lastIndexOf("-");
@@ -20,6 +25,7 @@ export function useRazaSelection() {
       }
       try {
         setSelectedOption(newValue);
+
         if (newValue.value === "todos") {
         } else {
         }

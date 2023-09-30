@@ -22,15 +22,17 @@ export const InputRaza: FC<PropsInputSelect> = (props) => {
   const { handleSelectChange, selectedOption } = useRazaSelection();
 
   const razas = useSelector((store: any) => store.razas.razas);
-  const razaSelected = useSelector((store: any) => store.razas.raza);
+  const razaSelected = useSelector((store: any) => store.razas.razaSelected);
 
   if (!props.name) return null;
 
   useEffect(() => {
     if (razaSelected != null) {
-      selectedOption.label = "";
-      selectedOption.value = razaSelected.idRaza;
-      handleSelectChange(selectedOption);
+      const selectedValue = {
+        value: razaSelected.idRaza,
+        label: razaSelected.nombre,
+      };
+      handleSelectChange(selectedValue);
     }
   }, [razaSelected, selectedOption]);
 

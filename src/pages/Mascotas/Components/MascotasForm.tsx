@@ -9,10 +9,13 @@ import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import { InputDate } from "../../../shared/Components/InputDate";
 import { ModalGeneral } from "../../../shared/Components/Modal/ModalGeneral";
 import { ModalMascotaIndex } from "./ModalAgregar";
+import { selectRaza } from "../../../redux/Razas/razas.slice";
+import { useDispatch } from "react-redux";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
   const { EstadosList, IsLoading: loadingEstados } = useEstados();
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -52,6 +55,7 @@ export const MascotasForm: FC = () => {
 
   const toggleModal = () => {
     setIdMascotaSeleccionada(null);
+    dispatch(selectRaza(undefined));
     setIsOpen(!isOpen);
   };
 
