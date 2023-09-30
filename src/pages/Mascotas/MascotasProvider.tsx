@@ -14,6 +14,7 @@ import useRazas from "../../shared/hooks/useRazas";
 import { RazasResponse } from "../../domain/Razas/Razas";
 import { ObjectSend } from "../../domain/Mascotas/ObjectSend";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { useMascotasMarcadas } from "./hooks/useMascotasMarcadas";
 
 export interface IMascotasContext {
   IsEditing: boolean;
@@ -65,51 +66,6 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
 
   const [mascotas, setMascotas] = useState<MascotaRequest>(initialRequest);
 
-  const [checked, setChecked] = useState<ObjectSend[]>([]);
-  const [indeterminate, setIndeterminate] = useState<boolean>(false);
-  const [checkAll, setCheckAll] = useState<boolean>(false);
-  const [selectedAll, setSelectedAll] = useState<boolean>(false);
-
-  const onCheckChange = (value: ObjectSend) => {
-    const newChecked = [...checked];
-    const index = newChecked.findIndex(
-      (item) => item.idMascota === value.idMascota
-    );
-
-    if (index === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(index, 1);
-    }
-
-    setChecked(newChecked);
-    setIndeterminate(
-      newChecked.length > 0 && newChecked.length !== Mascotas.length
-    );
-    setCheckAll(newChecked.length === Mascotas.length);
-  };
-
-  const onCheckAllChange = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      const allObjects = Mascotas.map((item) => ({
-        idMascota: item.idMascota,
-        nombre: item.nombre,
-        edad: item.edad,
-      }));
-      setChecked(allObjects);
-      setSelectedAll(true);
-    } else {
-      setChecked([]);
-      setSelectedAll(false);
-    }
-    setCheckAll(e.target.checked);
-  };
-
-  useEffect(() => {
-    setIndeterminate(checked.length > 0 && checked.length !== mascotas.length);
-    setCheckAll(checked.length === mascotas.length);
-  }, [checked, mascotas]);
-
   const { GetRazasOptions, dataLoaded, RazasList } = useRazas();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -136,6 +92,19 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
     lastPageTable,
     startPageTable,
   } = useMascotas(mascotas);
+
+  const {
+    checked,
+    setChecked,
+    indeterminate,
+    setIndeterminate,
+    checkAll,
+    setCheckAll,
+    selectedAll,
+    onCheckChange,
+    onCheckAllChange,
+    setSelectedAll,
+  } = useMascotasMarcadas(Mascotas);
 
   const storage: IMascotasContext = {
     Mascotas,

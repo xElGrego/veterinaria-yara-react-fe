@@ -1,11 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import { ObjectSend } from "../../../domain/Mascotas/ObjectSend";
-import MascotaContext, { IMascotasContext } from "../MascotasProvider";
-import { CheckboxChangeEvent } from "rc-checkbox";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { IMascota } from "../../../domain/Mascotas/IMascota";
 
-export const useMascotasMarcadas = () => {
-  const { Mascotas, checked, setChecked, setIndeterminate, setCheckAll } =
-    useContext(MascotaContext) as IMascotasContext;
+export const useMascotasMarcadas = (mascotas: IMascota[]) => {
+  const [checked, setChecked] = useState<ObjectSend[]>([]);
+  const [indeterminate, setIndeterminate] = useState<boolean>(false);
+  const [checkAll, setCheckAll] = useState<boolean>(false);
+  const [selectedAll, setSelectedAll] = useState<boolean>(false);
 
   const onCheckChange = (value: ObjectSend) => {
     const newChecked = [...checked];
@@ -21,32 +23,37 @@ export const useMascotasMarcadas = () => {
 
     setChecked(newChecked);
     setIndeterminate(
-      newChecked.length > 0 && newChecked.length !== Mascotas.length
+      newChecked.length > 0 && newChecked.length !== mascotas.length
     );
-    setCheckAll(newChecked.length === Mascotas.length);
+    setCheckAll(newChecked.length === mascotas.length);
   };
 
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
-      const allObjects = Mascotas.map((item) => ({
+      const allObjects = mascotas.map((item) => ({
         idMascota: item.idMascota,
         nombre: item.nombre,
         edad: item.edad,
       }));
       setChecked(allObjects);
+      setSelectedAll(true);
     } else {
       setChecked([]);
+      setSelectedAll(false);
     }
     setCheckAll(e.target.checked);
   };
 
-  useEffect(() => {
-    setIndeterminate(checked.length > 0 && checked.length !== Mascotas.length);
-  }, [checked, Mascotas]);
-
   return {
     checked,
+    setChecked,
+    indeterminate,
+    setIndeterminate,
+    checkAll,
+    setCheckAll,
+    selectedAll,
     onCheckChange,
     onCheckAllChange,
+    setSelectedAll,
   };
 };

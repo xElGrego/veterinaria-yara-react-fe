@@ -30,6 +30,8 @@ export const MascotasForm: FC = () => {
     isOpen,
     setIsOpen,
     setIdMascotaSeleccionada,
+    checked,
+    selectedAll,
   } = useContext(MascotaContext) as IMascotasContext;
 
   const handlerConsultar = async () => {
@@ -53,6 +55,15 @@ export const MascotasForm: FC = () => {
     setIsOpen(!isOpen);
   };
 
+  const handlePdf = () => {
+    console.log("PDF" + checked);
+    if (selectedAll) {
+      console.log("Todos marcados, ir a obtener las rutas");
+      return;
+    }
+    console.log("Marcados algunos");
+  };
+
   return (
     <>
       {isOpen && (
@@ -64,7 +75,9 @@ export const MascotasForm: FC = () => {
           <ModalMascotaIndex />
         </ModalGeneral>
       )}
-
+      <button className="bg-red-300 p-2 mb-2 rounded-lg" onClick={handlePdf}>
+        PDF
+      </button>
       <form onSubmit={handleSubmit(handlerConsultar)} className="py-4">
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
           <InputText

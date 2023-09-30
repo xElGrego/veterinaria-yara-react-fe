@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import { Checkbox } from "antd";
 import moment from "moment";
 import { DropDownMascota } from "./ListDropDown";
@@ -17,32 +17,24 @@ export const MascotasList: FC = () => {
     indeterminate,
     checkAll,
     selectedAll,
+    setIndeterminate,
+    setCheckAll,
     onCheckChange,
     onCheckAllChange,
   } = useContext(MascotaContext) as IMascotasContext;
 
   const obtenerRazonSocial = useRazonSocialPorIdEmpresa();
 
-  const handlePdf = () => {
-    console.log("PDF" + checked);
-    if (selectedAll) {
-      console.log("Todos marcados, ir a obtener las rutas");
-      return;
-    }
-    console.log("Marcados algunos");
-  };
+  useEffect(() => {
+    setIndeterminate(checked.length > 0 && checked.length !== Mascotas.length);
+    setCheckAll(checked.length === Mascotas.length);
+  }, [checked, Mascotas]);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
       <div className=" flex flex-col ">
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
-            <button
-              className="bg-red-300 p-2 mb-2 rounded-lg"
-              onClick={handlePdf}
-            >
-              PDF
-            </button>
             <div className="ring-1 ring-black max-h-[65vh] overflow-x-auto w-auto ring-opacity-5 md:rounded-lg shadow bg-white dark:bg-gray-900">
               <table className="min-w-full table-fixed divide-y w-auto divide-gray-300 dark:divide-gray-700">
                 {Mascotas.length === 0 ? (
