@@ -1,20 +1,12 @@
-import {
-  ChangeEvent,
-  FC,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Spinner } from "../../../shared/Components/Spinner";
-import MascotaContext, { IMascotasContext } from "../MascotasProvider";
-import { IMascota } from "../../../domain/Mascotas/IMascota";
-import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
-import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
-import moment from "moment";
-import { DropDownMascota } from "./ListDropDown";
+import { FC, useContext, useEffect, useState } from "react";
 import { Checkbox } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
+import moment from "moment";
+import { DropDownMascota } from "./ListDropDown";
+import MascotaContext, { IMascotasContext } from "../MascotasProvider";
+import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
+import { IMascota } from "../../../domain/Mascotas/IMascota";
+import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
 
 export const MascotasList: FC = () => {
   type ObjectSend = {
@@ -32,6 +24,7 @@ export const MascotasList: FC = () => {
   const [checked, setChecked] = useState<ObjectSend[]>([]);
   const [indeterminate, setIndeterminate] = useState<boolean>(false);
   const [checkAll, setCheckAll] = useState<boolean>(false);
+  const [selectedAll, setSelectedAll] = useState<boolean>(false);
 
   const onCheckChange = (value: ObjectSend) => {
     const newChecked = [...checked];
@@ -60,10 +53,26 @@ export const MascotasList: FC = () => {
         edad: item.edad,
       }));
       setChecked(allObjects);
+      setSelectedAll(true);
     } else {
       setChecked([]);
+      setSelectedAll(false);
     }
     setCheckAll(e.target.checked);
+  };
+
+  useEffect(() => {
+    setIndeterminate(checked.length > 0 && checked.length !== Mascotas.length);
+    setCheckAll(checked.length === Mascotas.length);
+  }, [checked, Mascotas]);
+
+  const handlePdf = () => {
+    console.log("PDF" + checked);
+    if (selectedAll) {
+      console.log("Todos marcados, ir a obtener las rutas");
+      return;
+    }
+    console.log("Marcados algunos");
   };
 
   return (
@@ -71,7 +80,13 @@ export const MascotasList: FC = () => {
       <div className=" flex flex-col ">
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
-            <div className="ring-1 ring-black    max-h-[65vh] overflow-x-auto w-auto  ring-opacity-5 md:rounded-lg  shadow bg-white dark:bg-gray-900  ">
+            <button
+              className="bg-red-300 p-2 mb-2 rounded-lg"
+              onClick={handlePdf}
+            >
+              PDF
+            </button>
+            <div className="ring-1 ring-black max-h-[65vh] overflow-x-auto w-auto ring-opacity-5 md:rounded-lg shadow bg-white dark:bg-gray-900">
               <table className="min-w-full table-fixed divide-y w-auto divide-gray-300 dark:divide-gray-700">
                 {Mascotas.length === 0 ? (
                   <span></span>
@@ -130,9 +145,12 @@ export const MascotasList: FC = () => {
                           <td>
                             <Checkbox
                               value={el.idMascota}
-                              checked={checked.some(
-                                (item) => item.idMascota === el.idMascota
-                              )}
+                              checked={
+                                selectedAll ||
+                                checked.some(
+                                  (item) => item.idMascota === el.idMascota
+                                )
+                              }
                               onChange={() =>
                                 onCheckChange({
                                   idMascota: el.idMascota,
