@@ -13,23 +13,31 @@ import { PaginationButtons } from "../../../shared/Components/PaginationButtons"
 import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
 import moment from "moment";
 import { DropDownMascota } from "./ListDropDown";
-import { Checkbox, List } from "antd";
+import { Checkbox } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 export const MascotasList: FC = () => {
-  const { Mascotas, IsLoading, ActualPage, TotalDocs, buttons } = useContext(
+  type ObjectSend = {
+    idMascota: Guid;
+    nombre: string;
+    edad: number;
+  };
+
+  const { Mascotas, ActualPage, TotalDocs, buttons } = useContext(
     MascotaContext
   ) as IMascotasContext;
 
   const obtenerRazonSocial = useRazonSocialPorIdEmpresa();
 
-  const [checked, setChecked] = useState<string[]>([]);
+  const [checked, setChecked] = useState<ObjectSend[]>([]);
   const [indeterminate, setIndeterminate] = useState<boolean>(false);
   const [checkAll, setCheckAll] = useState<boolean>(false);
 
-  const onCheckChange = (value: string) => {
+  const onCheckChange = (value: ObjectSend) => {
     const newChecked = [...checked];
-    const index = newChecked.indexOf(value);
+    const index = newChecked.findIndex(
+      (item) => item.idMascota === value.idMascota
+    );
 
     if (index === -1) {
       newChecked.push(value);
@@ -46,7 +54,12 @@ export const MascotasList: FC = () => {
 
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
-      setChecked(Mascotas.map((item) => item.idMascota));
+      const allObjects = Mascotas.map((item) => ({
+        idMascota: item.idMascota,
+        nombre: item.nombre,
+        edad: item.edad,
+      }));
+      setChecked(allObjects);
     } else {
       setChecked([]);
     }
@@ -56,9 +69,6 @@ export const MascotasList: FC = () => {
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
       <div className=" flex flex-col ">
-        <div style={{ marginTop: 20 }}>
-          <b>Selecting:</b> {checked.join(", ")}
-        </div>
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
             <div className="ring-1 ring-black    max-h-[65vh] overflow-x-auto w-auto  ring-opacity-5 md:rounded-lg  shadow bg-white dark:bg-gray-900  ">
@@ -120,8 +130,16 @@ export const MascotasList: FC = () => {
                           <td>
                             <Checkbox
                               value={el.idMascota}
-                              checked={checked.includes(el.idMascota)}
-                              onChange={() => onCheckChange(el.idMascota)}
+                              checked={checked.some(
+                                (item) => item.idMascota === el.idMascota
+                              )}
+                              onChange={() =>
+                                onCheckChange({
+                                  idMascota: el.idMascota,
+                                  nombre: el.nombre,
+                                  edad: el.edad,
+                                })
+                              }
                             />
                           </td>
                           <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
