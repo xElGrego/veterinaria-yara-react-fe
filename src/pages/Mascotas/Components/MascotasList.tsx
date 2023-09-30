@@ -23,85 +23,42 @@ export const MascotasList: FC = () => {
 
   const obtenerRazonSocial = useRazonSocialPorIdEmpresa();
 
-  interface Item {
-    id: number;
-    title: string;
-    name: string;
-  }
-
-  /* const data: Item[] = [
-    {
-      id: 1,
-      title: "Ant Design Title 1",
-      name: "nam1",
-    },
-    {
-      id: 2,
-      title: "Ant Design Title 2",
-      name: "nam2",
-    },
-    {
-      id: 3,
-      title: "Ant Design Title3",
-      name: "nam3",
-    },
-    {
-      id: 4,
-      title: "Ant Design Title 4",
-      name: "nam4",
-    },
-  ]; */
-
   const [checked, setChecked] = useState<string[]>([]);
   const [indeterminate, setIndeterminate] = useState<boolean>(false);
   const [checkAll, setCheckAll] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIndeterminate(checked.length > 0 && checked.length !== Mascotas.length);
-    setCheckAll(checked.length === Mascotas.length);
-  }, [checked]);
+  const onCheckChange = (value: string) => {
+    const newChecked = [...checked];
+    const index = newChecked.indexOf(value);
+
+    if (index === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(index, 1);
+    }
+
+    setChecked(newChecked);
+    setIndeterminate(
+      newChecked.length > 0 && newChecked.length !== Mascotas.length
+    );
+    setCheckAll(newChecked.length === Mascotas.length);
+  };
 
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
-    setChecked(e.target.checked ? Mascotas.map((item) => item.idMascota) : []);
+    if (e.target.checked) {
+      setChecked(Mascotas.map((item) => item.idMascota));
+    } else {
+      setChecked([]);
+    }
     setCheckAll(e.target.checked);
   };
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
       <div className=" flex flex-col ">
-        {/* <div>
-          <Checkbox
-            indeterminate={indeterminate}
-            onChange={onCheckAllChange}
-            checked={checkAll}
-          >
-            Check all
-          </Checkbox>
-          <Checkbox.Group
-            style={{ width: "100%" }}
-            value={checked}
-            onChange={(checkedValues) => {
-              setChecked(checkedValues as string[]);
-            }}
-          >
-            <List
-              itemLayout="vertical"
-              dataSource={Mascotas}
-              renderItem={(item: IMascota) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<Checkbox value={item.idMascota} />}
-                    title={<a href="https://ant.design">{item.nombre}</a>}
-                    description="1"
-                  />
-                </List.Item>
-              )}
-            />
-          </Checkbox.Group>
-          <div style={{ marginTop: 20 }}>
-            <b>Selecting:</b> {checked.join(", ")}
-          </div>
-        </div> */}
+        <div style={{ marginTop: 20 }}>
+          <b>Selecting:</b> {checked.join(", ")}
+        </div>
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
             <div className="ring-1 ring-black    max-h-[65vh] overflow-x-auto w-auto  ring-opacity-5 md:rounded-lg  shadow bg-white dark:bg-gray-900  ">
@@ -161,17 +118,12 @@ export const MascotasList: FC = () => {
                       {Mascotas.map((el: IMascota, key: number) => (
                         <tr key={key}>
                           <td>
-                            <Checkbox.Group
-                              style={{ width: "100%" }}
-                              value={checked}
-                              onChange={(checkedValues) => {
-                                setChecked(checkedValues as string[]);
-                              }}
-                            >
-                              <Checkbox value={el.idMascota} />
-                            </Checkbox.Group>
+                            <Checkbox
+                              value={el.idMascota}
+                              checked={checked.includes(el.idMascota)}
+                              onChange={() => onCheckChange(el.idMascota)}
+                            />
                           </td>
-
                           <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.nombre}
                           </td>
