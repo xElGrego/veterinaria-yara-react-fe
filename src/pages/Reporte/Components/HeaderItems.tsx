@@ -3,13 +3,11 @@ import useQuantityComprobantes from "../hooks/useQuantityComprobantes";
 import { IComprobanteTxt } from "../hooks/useConvertedTxt";
 
 interface HeaderItemsProps {
-  ListItemsPerUpload: (IComprobanteTxt[] | null)[];
+  ListItemsPerUpload: IComprobanteTxt[];
 }
 
 const HeaderItems: React.FC<HeaderItemsProps> = ({ ListItemsPerUpload }) => {
-  const { ComprobantesQuantity } = useQuantityComprobantes(
-    ListItemsPerUpload || []
-  );
+  const { ComprobantesQuantity } = useQuantityComprobantes(ListItemsPerUpload);
 
   return (
     <div>
