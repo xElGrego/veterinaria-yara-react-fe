@@ -14,6 +14,7 @@ export const SideBar: FC = () => {
     { name: "Usuarios", link: "usuarios", icon: AiOutlineUser },
     { name: "Mascotas", link: "mascotas", icon: FiMessageSquare },
     { name: "Razas", link: "razas", icon: TbReportAnalytics },
+    { name: "Reportes", link: "reporte", icon: TbReportAnalytics },
   ];
 
   return (
