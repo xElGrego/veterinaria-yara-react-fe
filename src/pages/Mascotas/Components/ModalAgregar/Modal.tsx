@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Button } from "../Button";
 import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
 import { useFormContext } from "react-hook-form";
@@ -11,6 +11,7 @@ import MascotaContext, { IMascotasContext } from "../../MascotasProvider";
 import usePutMascotas from "../../../../application/Mascotas/putMascota";
 import { useAppSelector } from "../../../../store/store";
 import { razaSelector } from "../../../../redux/Razas/razas.selector";
+import { useSelector } from "react-redux";
 
 export const ContentModal: FC = () => {
   const {
@@ -68,12 +69,24 @@ export const ContentModal: FC = () => {
     reset();
   };
 
+  const razas = useSelector((store: any) => store.razas.razas);
+
+  const [updateKey, setUpdateKey] = useState(0);
+
+  useEffect(() => {
+    setUpdateKey((prevKey) => prevKey + 1);
+  }, [razas]);
+
   return (
     <form onSubmit={handleSubmit(handlerAgregarEditar)} className="py-4">
       <div className="flex justify-end"></div>
       <div>
         {dataLoaded ? (
-          <InputRaza name="Razas" title="Razas" />
+          <InputRaza
+            name="Razas"
+            title="Razas"
+            key={updateKey} // Cambiar la "clave" forzará una actualización del componente
+          />
         ) : (
           <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">
             <Spinner class="w-5 h-5 text-blue-600 dark:text-white" />
