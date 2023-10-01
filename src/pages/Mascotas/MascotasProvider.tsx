@@ -3,7 +3,6 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
-  useEffect,
   useState,
 } from "react";
 import { IMascota, MascotaRequest } from "../../domain/Mascotas/IMascota";

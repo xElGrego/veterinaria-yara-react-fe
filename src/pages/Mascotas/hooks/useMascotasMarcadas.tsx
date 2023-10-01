@@ -42,6 +42,7 @@ export const useMascotasMarcadas = (mascotas: IMascota[]) => {
       setSelectedAll(false);
     }
     setCheckAll(e.target.checked);
+    console.log("aqui");
   };
 
   return {

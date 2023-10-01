@@ -5,6 +5,8 @@ import { FC, useContext } from "react";
 import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import { useDispatch } from "react-redux";
 import { selectRaza } from "../../../redux/Razas/razas.slice";
+import useDeleteMascota from "../../../application/Mascotas/deleteMascota";
+import { toast } from "react-toastify";
 
 interface DropDownMascotaProps {
   field: IMascota;
@@ -13,8 +15,9 @@ interface DropDownMascotaProps {
 export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
   const dispatch = useDispatch();
 
-  const { handleOptionSelect, toggleDropdown, dropdownRef, isOpen, setIsOpen } =
-    useComponenModal();
+  const { deleteMascota } = useDeleteMascota();
+
+  const { toggleDropdown, dropdownRef, isOpen, setIsOpen } = useComponenModal();
 
   const {
     setIsOpen: OpenModal,
@@ -28,6 +31,15 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
     setIsEditing(true);
     OpenModal(true);
     setIsOpen(false);
+  };
+
+  const handlerEliminar = async (idMascota: Guid) => {
+    try {
+      var res = await deleteMascota(idMascota);
+      toast.info(res);
+    } catch (error) {
+      toast.error("Hubo un error al eliminar a la máscota");
+    }
   };
 
   return (
@@ -65,26 +77,6 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
             leaveTo="opacity-0 scale-95 z-[50]"
           >
             <ul className="absolute z-[50] -top-24  space-y-2   flex-col p-1  cursor-pointer text-black right-12  mt-2 w-44 transition-colors duration-200 rounded-md bg-gray-50  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <li
-                className="flex items-center gap-x-1 my-2  mx-2 z-[50] lg:hidden hover:bg-gray-500 "
-                onClick={handleOptionSelect}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-                  />
-                </svg>
-                Detalle
-              </li>
               <li className="">
                 <button
                   className="w-full flex items-center gap-x-1 my-2  mx-2 "
@@ -107,8 +99,12 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
                   Editar
                 </button>
               </li>
+
               <li className="">
-                <div className="w-full flex items-center gap-x-1 my-2  mx-2">
+                <button
+                  className="w-full flex items-center gap-x-1 my-2  mx-2 "
+                  onClick={() => handlerEliminar(field.idMascota)}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -124,7 +120,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
                     />
                   </svg>
                   Eliminar
-                </div>
+                </button>
               </li>
             </ul>
           </Transition>

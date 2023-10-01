@@ -18,6 +18,7 @@ export interface MascotasServices {
   getMascotas(req: MascotasRequest): Promise<ItemsPaginationResponse<MascotasResponse>>
   postMascota(req: IAddMascotaRequest): Promise<IAddMascotaResponse>
   putMascota(req: IAddMascotaRequest): Promise<IAddMascotaResponse>
+  deleteMascota(req: Guid): Promise<string>
 }
 
 export interface EstadosServices {

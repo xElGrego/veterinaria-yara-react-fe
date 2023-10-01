@@ -33,10 +33,21 @@ const useMascotasServices = (): MascotasServices => {
         return res.data.data;
     }
 
+    const deleteMascota = async (req: Guid): Promise<string> => {
+        let res = await MascotaClient.delete("/veterinaria-yara/eliminar-mascota", {
+            headers: {
+                "IdMascota": req.toString()
+            }
+        },
+        );
+        return res.data.data.response;
+    }
+
     return {
         getMascotas,
         postMascota,
-        putMascota
+        putMascota,
+        deleteMascota
     }
 }
 

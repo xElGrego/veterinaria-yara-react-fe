@@ -41,26 +41,11 @@ export const ContentModal: FC = () => {
     }
   }, [IsEditing, idMascotaSeleccionada, reset, Mascotas]);
 
-  /*   const handlerAgregar = async () => {
-    try {
-      const params: IAddMascotaRequest = { ...getValues() };
-      params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16"; //! SETEADO
-      params.idRaza = localStorage.getItem("empresaSelected")!;
-      var res = await postMascotas(params);
-      toast.success(res.response);
-      reset();
-    } catch (error) {
-      toast.error("Error al ingresar a la mascota");
-    }
-  };
- */
-
   const handlerAgregarEditar = async () => {
     try {
       const params: IAddMascotaRequest = { ...getValues() };
       params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16"; //! SETEADO
-      params.idRaza = localStorage.getItem("empresaSelected")!;
-
+      params.idRaza = localStorage.getItem("razaSelected")!;
       if (IsEditing && idMascotaSeleccionada) {
         params.idMascota = idMascotaSeleccionada;
         var res = await putMascotas(params);
@@ -71,7 +56,11 @@ export const ContentModal: FC = () => {
         reset();
       }
     } catch (error) {
-      toast.error("Error al ingresar a la mascota");
+      toast.error(
+        idMascotaSeleccionada
+          ? "Error al editar a la mascota"
+          : "Error al ingresar a la mascota"
+      );
     }
   };
 
@@ -123,7 +112,10 @@ export const ContentModal: FC = () => {
 
       <br />
       <div className="flex gap-4 justify-end">
-        <Button title="Agregar" type="submit" />
+        <Button
+          title={idMascotaSeleccionada ? "Editar" : "Agregar"}
+          type="submit"
+        />
         <Button
           onClick={handlerLimpiar}
           title="Limpiar"

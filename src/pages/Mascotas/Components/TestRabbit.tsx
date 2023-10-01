@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/* import React, { useEffect, useState } from "react";
 import { AMQPWebSocketClient, AMQPChannel } from "@cloudamqp/amqp-client";
 
 const url = "ws://localhost:15670";
@@ -45,7 +45,6 @@ export const TestRabbit: React.FC = () => {
     }
 
     console.log("Calling connect");
-    /* rabbitmxd(); */
   };
 
   return (
@@ -59,3 +58,4 @@ export const TestRabbit: React.FC = () => {
     </div>
   );
 };
+ */

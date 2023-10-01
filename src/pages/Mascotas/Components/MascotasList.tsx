@@ -84,6 +84,9 @@ export const MascotasList: FC = () => {
                           Fecha Registro
                         </th>
                         <th scope="col" className="py-3.5 pl-4 pr-3 sm:pl-6">
+                          Estado
+                        </th>
+                        <th scope="col" className="py-3.5 pl-4 pr-3 sm:pl-6">
                           Opciones
                         </th>
                       </tr>
@@ -128,6 +131,13 @@ export const MascotasList: FC = () => {
                             {moment(el.fechaIngreso).format(
                               "DD-MM-YYYY HH:mm:ss"
                             )}
+                          </td>
+                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                            {el.estado === 2
+                              ? "Activo"
+                              : el.estado === 3
+                              ? "Inactivo"
+                              : "Desconocido"}
                           </td>
                           <td className="py-3.5 pl-4 pr-3 sm:pl-6">
                             <DropDownMascota field={el} />
