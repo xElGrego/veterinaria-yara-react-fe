@@ -55,21 +55,20 @@ const ModalContent = () => {
       {FilesToUpload && FilesToUpload.length > 0 && (
         <>
           {FilesToUpload.map((file, index) => (
-            <>
+            <div key={index}>
               <HeaderSubirTxt
-                key={index}
                 name={file.name || "N/A"}
                 razonSocial={"Razon social"}
                 peso={file.size || 0}
               />
-              {ListItemsPerUpload && ListItemsPerUpload.length > 0 && (
-                <>
-                  {ListItemsPerUpload.map((item, index) => (
-                    <HeaderItems key={index} ListItemsPerUpload={item} />
-                  ))}
-                </>
-              )}
-            </>
+            </div>
+          ))}
+        </>
+      )}
+      {ListItemsPerUpload && ListItemsPerUpload.length > 0 && (
+        <>
+          {ListItemsPerUpload.map((item, itemIndex) => (
+            <HeaderItems key={itemIndex} ListItemsPerUpload={item!} />
           ))}
         </>
       )}
