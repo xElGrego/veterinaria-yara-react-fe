@@ -32,7 +32,9 @@ export const InputRaza: FC<PropsInputSelect> = (props) => {
         value: razaSelected.idRaza,
         label: razaSelected.nombre,
       };
-      handleSelectChange(selectedValue);
+      if (selectedValue.value !== selectedOption.value) {
+        handleSelectChange(selectedValue);
+      }
     }
   }, [razaSelected, selectedOption]);
 
