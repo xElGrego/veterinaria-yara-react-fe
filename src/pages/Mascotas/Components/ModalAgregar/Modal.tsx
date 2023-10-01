@@ -74,6 +74,7 @@ export const ContentModal: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(handlerAgregarEditar)} className="py-4">
+      <div className="flex justify-end"></div>
       <div>
         {dataLoaded ? (
           <InputRaza

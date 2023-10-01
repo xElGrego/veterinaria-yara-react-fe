@@ -8,4 +8,11 @@ export type RazasResponse = {
     idRaza: Guid;
     nombre: string;
     descripcion: string;
+    fechaIngreso: Date | null;
+};
+
+export type RazaRequest = {
+    idRaza?: Guid;
+    nombre: string;
+    descripcion: string;
 };
