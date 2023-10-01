@@ -82,11 +82,7 @@ export const ContentModal: FC = () => {
       <div className="flex justify-end"></div>
       <div>
         {dataLoaded ? (
-          <InputRaza
-            name="Razas"
-            title="Razas"
-            key={updateKey} // Cambiar la "clave" forzará una actualización del componente
-          />
+          <InputRaza name="Razas" title="Razas" key={updateKey} />
         ) : (
           <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">
             <Spinner class="w-5 h-5 text-blue-600 dark:text-white" />
