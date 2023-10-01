@@ -7,7 +7,7 @@ import { ModalGeneral } from "../../shared/Components/Modal/ModalGeneral";
 import IndexModalTxt from "./Components/ModalSubirTxt";
 
 export const ReporteForm: FC = () => {
-  const { setListItemsPerUpload, setFileToUpload } = useContext(
+  const { setListItemsPerUpload, setFilesToUpload } = useContext(
     ReporteContext
   ) as IReportesContext;
 
@@ -22,17 +22,25 @@ export const ReporteForm: FC = () => {
   const handleTxtFile = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       if (e.target.files) {
-        const filesToProcess: File = e.target.files[0];
-        setFileToUpload(filesToProcess);
-        if (filesToProcess.size < 500000) {
-          const data = await handleProcessDocument(filesToProcess);
-          setListItemsPerUpload([...data]);
-        } else {
-          setListItemsPerUpload(null);
-        }
+        const filesToProcess: File[] = Array.from(e.target.files); // Convierte la lista de archivos en un array
+        setFilesToUpload(filesToProcess);
+
+        const processedDataArray = await Promise.all(
+          filesToProcess.map(async (file) => {
+            if (file.size < 500000) {
+              return await handleProcessDocument(file);
+            } else {
+              return null;
+            }
+          })
+        );
+
+        //setListItemsPerUpload([...processedDataArray]);
         toogleModalClave();
       }
-    } catch (err) {}
+    } catch (err) {
+      // Maneja los errores aquí
+    }
   };
 
   return (
@@ -51,7 +59,7 @@ export const ReporteForm: FC = () => {
           onChange={handleTxtFile}
           title="Subir txt"
           id="txt"
-          isMultiple={false}
+          isMultiple={true}
           svg={<HiOutlineDocumentText className="-ml-1 mr-3 h-5 w-5" />}
         />
       </div>

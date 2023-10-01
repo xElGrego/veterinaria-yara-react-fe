@@ -10,8 +10,8 @@ import { IComprobanteTxt } from "./hooks/useConvertedTxt";
 export interface IReportesContext {
   ListItemsPerUpload: IComprobanteTxt[] | null;
   setListItemsPerUpload: Dispatch<SetStateAction<IComprobanteTxt[] | null>>;
-  FileToUpload?: File;
-  setFileToUpload: Dispatch<SetStateAction<File | undefined>>;
+  FilesToUpload: File[] | null;
+  setFilesToUpload: Dispatch<SetStateAction<File[] | null>>;
 }
 
 const ReporteContext = createContext({});
@@ -21,11 +21,11 @@ export const ReporteProvider = ({ children }: { children: ReactNode }) => {
     IComprobanteTxt[] | null
   >([]);
 
-  const [FileToUpload, setFileToUpload] = useState<File>();
+  const [FilesToUpload, setFilesToUpload] = useState<File[] | null>([]);
 
   const storage: IReportesContext = {
-    FileToUpload,
-    setFileToUpload,
+    FilesToUpload,
+    setFilesToUpload,
     ListItemsPerUpload,
     setListItemsPerUpload,
   };
