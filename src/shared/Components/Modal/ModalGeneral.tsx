@@ -49,7 +49,7 @@ export const ModalGeneral: React.FC<ModalGeneralIPropsItems> = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block max-w-3xl lg:w-[28rem] md:w-[28rem] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block max-w-3xl lg:w-[48rem] md:w-[48rem] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
                   className="text-lg flex justify-center font-medium leading-6 text-gray-900"
