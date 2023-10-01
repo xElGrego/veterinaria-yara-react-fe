@@ -1,10 +1,12 @@
-import { useContext } from "react";
-import ReporteContext, { IReportesContext } from "../ReporteProvider";
+import React from "react";
 import useQuantityComprobantes from "../hooks/useQuantityComprobantes";
+import { IComprobanteTxt } from "../hooks/useConvertedTxt";
 
-const HeaderItems = () => {
-  const { ListItemsPerUpload } = useContext(ReporteContext) as IReportesContext;
+interface HeaderItemsProps {
+  ListItemsPerUpload: (IComprobanteTxt[] | null)[];
+}
 
+const HeaderItems: React.FC<HeaderItemsProps> = ({ ListItemsPerUpload }) => {
   const { ComprobantesQuantity } = useQuantityComprobantes(
     ListItemsPerUpload || []
   );

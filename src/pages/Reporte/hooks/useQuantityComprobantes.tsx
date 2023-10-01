@@ -11,7 +11,9 @@ export interface IQuantityHandler {
   Total: number;
 }
 
-const useQuantityComprobantes = (ElementsList: IComprobanteTxt[]) => {
+const useQuantityComprobantes = (
+  ElementsList: (IComprobanteTxt[] | null)[]
+) => {
   const QuantityHandlerInitalState: IQuantityHandler = {
     "Guías de Remisión": 0,
     Factura: 0,
@@ -31,10 +33,19 @@ const useQuantityComprobantes = (ElementsList: IComprobanteTxt[]) => {
       ...QuantityHandlerInitalState,
     };
 
-    ElementsList.map((a: IComprobanteTxt) => {
-      ItemsQuantity[a.Comprobante] += 1;
+    ElementsList.forEach((subList: IComprobanteTxt[] | null) => {
+      subList?.forEach((a: IComprobanteTxt | null) => {
+        if (a) {
+          ItemsQuantity[a.Comprobante] += 1;
+        }
+      });
     });
-    ItemsQuantity["Total"] = ElementsList.length;
+
+    const totalItems = ElementsList.map(
+      (subList) => subList?.length || 0
+    ).reduce((acc, length) => acc + length, 0);
+
+    ItemsQuantity["Total"] = totalItems;
     return ItemsQuantity;
   };
 

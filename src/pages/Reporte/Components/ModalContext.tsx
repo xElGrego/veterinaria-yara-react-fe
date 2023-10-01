@@ -55,16 +55,14 @@ const ModalContent = () => {
       {FilesToUpload && FilesToUpload.length > 0 && (
         <>
           {FilesToUpload.map((file, index) => (
-            <>
-              <HeaderSubirTxt
-                key={index}
-                name={file.name || "N/A"}
-                razonSocial={"Razon social"}
-                peso={file.size || 0}
-              />
-              <HeaderItems />
-            </>
+            <HeaderSubirTxt
+              key={index}
+              name={file.name || "N/A"}
+              razonSocial={"Razon social"}
+              peso={file.size || 0}
+            />
           ))}
+          <HeaderItems ListItemsPerUpload={ListItemsPerUpload} />
         </>
       )}
 

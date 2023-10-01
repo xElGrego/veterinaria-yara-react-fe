@@ -42,10 +42,11 @@ export const ReporteForm: FC = () => {
             }
           })
         );
-        processedDataArray.forEach((item, index) => {
-          console.log(`Mostrar item ${index}:`, item);
-          setListItemsPerUpload(item);
-        });
+
+        setListItemsPerUpload((prevList) => [
+          ...(prevList || []),
+          ...processedDataArray,
+        ]);
 
         toogleModalClave();
       }
