@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import ReporteContext, { IReportesContext } from "../ReporteProvider";
 import { Spinner } from "../../../shared/Components/Spinner";
 import { HeaderSubirTxt } from "./HeaderSubirTxt";
+import moment from "moment";
 
 const ModalContent = () => {
   const { FilesToUpload, ListItemsPerUpload } = useContext(
@@ -21,8 +22,16 @@ const ModalContent = () => {
 
   const handlerAddDocuments = async () => {
     try {
-      setIsLoadingAdded(true);
-      // Aquí puedes realizar cualquier acción adicional que necesites para subir los archivos
+      for (const file of FilesToUpload || []) {
+        if (file) {
+          /*    const status: boolean = await UploadDocument(
+            file,
+            empresaId,
+            getValues().mes
+          ); */
+          console.log(`Archivo ${file.name} subido con éxito.`);
+        }
+      }
     } catch (ex) {
       // Maneja los errores aquí
     } finally {
