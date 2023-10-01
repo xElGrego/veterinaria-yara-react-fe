@@ -5,6 +5,7 @@ import ReporteContext, { IReportesContext } from "./ReporteProvider";
 import useUnconvertedTxt from "./hooks/useConvertedTxt";
 import { ModalGeneral } from "../../shared/Components/Modal/ModalGeneral";
 import IndexModalTxt from "./Components/ModalSubirTxt";
+import { toast } from "react-toastify";
 
 export const ReporteForm: FC = () => {
   const { setListItemsPerUpload, setFilesToUpload } = useContext(
@@ -22,7 +23,14 @@ export const ReporteForm: FC = () => {
   const handleTxtFile = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       if (e.target.files) {
-        const filesToProcess: File[] = Array.from(e.target.files); // Convierte la lista de archivos en un array
+        const selectedFiles = e.target.files;
+
+        if (selectedFiles.length >= 6) {
+          toast.info("Solo puedes seleccionar hasta 6 archivos.");
+          return;
+        }
+
+        const filesToProcess: File[] = Array.from(selectedFiles); // Convierte la lista de archivos en un array
         setFilesToUpload(filesToProcess);
 
         const processedDataArray = await Promise.all(
