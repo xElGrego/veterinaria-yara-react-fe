@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { InputRaza } from "../../../../shared/Components/Inputs/InputRaza";
 import MascotaContext, { IMascotasContext } from "../../MascotasProvider";
 import usePutMascotas from "../../../../application/Mascotas/putMascota";
+import { useAppSelector } from "../../../../store/store";
+import { razaSelector } from "../../../../redux/Razas/razas.selector";
 
 export const ContentModal: FC = () => {
   const {
@@ -41,11 +43,13 @@ export const ContentModal: FC = () => {
     }
   }, [IsEditing, idMascotaSeleccionada, reset, Mascotas]);
 
+  const razaSelected = useAppSelector(razaSelector);
+
   const handlerAgregarEditar = async () => {
     try {
       const params: IAddMascotaRequest = { ...getValues() };
       params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16"; //! SETEADO
-      params.idRaza = localStorage.getItem("razaSelected")!;
+      params.idRaza = razaSelected?.idRaza;
       if (IsEditing && idMascotaSeleccionada) {
         params.idMascota = idMascotaSeleccionada;
         var res = await putMascotas(params);

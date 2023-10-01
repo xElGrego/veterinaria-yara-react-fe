@@ -101,26 +101,49 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
               </li>
 
               <li className="">
-                <button
-                  className="w-full flex items-center gap-x-1 my-2  mx-2 "
-                  onClick={() => handlerEliminar(field.idMascota)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-5 h-5"
+                {field.estado == 2 ? (
+                  <button
+                    className="w-full flex items-center gap-x-1 my-2  mx-2 "
+                    onClick={() => handlerEliminar(field.idMascota)}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-                    />
-                  </svg>
-                  Eliminar
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                      />
+                    </svg>
+                    Eliminar
+                  </button>
+                ) : (
+                  <button
+                    className="w-full flex items-center gap-x-1 my-2  mx-2 "
+                    onClick={() => handlerEliminar(field.idMascota)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                      />
+                    </svg>
+                    Activar
+                  </button>
+                )}
               </li>
             </ul>
           </Transition>
