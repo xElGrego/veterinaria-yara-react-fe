@@ -21,9 +21,13 @@ export const razaSlice = createSlice({
             } else {
                 state.razaSelected = undefined;
             }
+        },
+        guardarRaza: (state, action) => {
+            const nuevaRaza = action.payload;
+            state.razas.push(nuevaRaza);
         }
     }
 });
 
-export const { loadRaza, selectRaza } = razaSlice.actions;
+export const { loadRaza, selectRaza, guardarRaza } = razaSlice.actions;
 export default razaSlice.reducer;

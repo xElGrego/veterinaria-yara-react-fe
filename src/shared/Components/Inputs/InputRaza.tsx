@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useRazaSelection } from "../../hooks/useRazaSelection";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { RazasResponse } from "../../../domain/Razas/Razas";
 import AsyncSelect from "react-select/async";
 
@@ -20,7 +20,7 @@ interface PropsInputSelect {
 
 export const InputRaza: FC<PropsInputSelect> = (props) => {
   const { handleSelectChange, selectedOption } = useRazaSelection();
-
+  const [options, setOptions] = useState<InputSelectOptionsEmpresa[]>([]);
   const razas = useSelector((store: any) => store.razas.razas);
   const razaSelected = useSelector((store: any) => store.razas.razaSelected);
 
@@ -84,10 +84,15 @@ export const InputRaza: FC<PropsInputSelect> = (props) => {
         cacheOptions
         defaultOptions
         placeholder="Seleccionen una mascota"
-        loadOptions={loadOptions}
+        loadOptions={(inputValue, callback) => {
+          loadOptions(inputValue, (newOptions) => {
+            setOptions(newOptions);
+            callback(newOptions);
+          });
+        }}
         onChange={handleSelectChange}
         className="flex-1 w-full text-sm  "
-        value={selectedOption}
+        options={options}
       />
     </div>
   );

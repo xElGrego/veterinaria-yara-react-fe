@@ -3,9 +3,14 @@ import { InputText } from "../../../shared/Components/InputText";
 import { RazaRequest } from "../../../domain/Razas/Razas";
 import { useFormContext } from "react-hook-form";
 import { useToastify } from "../../../hooks/Toastify";
+import { useDispatch } from "react-redux";
+import { guardarRaza } from "../../../redux/Razas/razas.slice";
+import { v4 as uuidv4 } from "uuid";
 
 export const RazasForm: FC = () => {
+  const guid = uuidv4();
   const { onError } = useToastify();
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -18,7 +23,9 @@ export const RazasForm: FC = () => {
   const handlerAgregar = async () => {
     try {
       const params: RazaRequest = { ...getValues() };
+      params.idRaza = guid;
       console.log("Parms" + JSON.stringify(params));
+      dispatch(guardarRaza(params));
     } catch (error) {
       onError("Hubo un error.");
     }

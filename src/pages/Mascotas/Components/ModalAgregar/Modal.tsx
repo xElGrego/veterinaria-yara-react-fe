@@ -24,13 +24,9 @@ export const ContentModal: FC = () => {
   const { postMascotas } = usePostMascotas();
   const { putMascotas } = usePutMascotas();
 
-  const {
-    dataLoaded,
-    GetRazasOptions,
-    Mascotas,
-    IsEditing,
-    idMascotaSeleccionada,
-  } = useContext(MascotaContext) as IMascotasContext;
+  const { dataLoaded, Mascotas, IsEditing, idMascotaSeleccionada } = useContext(
+    MascotaContext
+  ) as IMascotasContext;
 
   useEffect(() => {
     if (IsEditing && idMascotaSeleccionada) {
@@ -77,11 +73,7 @@ export const ContentModal: FC = () => {
       <div className="flex justify-end"></div>
       <div>
         {dataLoaded ? (
-          <InputRaza
-            name="Razas"
-            title="Razas"
-            options={[{ title: "Todos", value: "000" }, ...GetRazasOptions()]}
-          />
+          <InputRaza name="Razas" title="Razas" />
         ) : (
           <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">
             <Spinner class="w-5 h-5 text-blue-600 dark:text-white" />
