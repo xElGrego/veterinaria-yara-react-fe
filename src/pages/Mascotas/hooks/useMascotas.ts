@@ -4,6 +4,7 @@ import useGetMascotas from "../../../application/Mascotas/getMascotas";
 import usePagination from "../../../shared/hooks/usePagination";
 
 const useMascotas = (initialRequest: MascotaRequest) => {
+
     const { getMascotas } = useGetMascotas();
     const [IsLoading, setIsLoading] = useState<boolean>(false);
     const [Mascotas, setMascotas] = useState<IMascota[]>([]);

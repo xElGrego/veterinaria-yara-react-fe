@@ -21,7 +21,9 @@ export const RazasList: FC = () => {
       toast.success(res);
       dispatch(eliminarRaza(idRaza));
     } catch (error: any) {
-      const res = error.response.data.message;
+      const errorMessage =
+        error.response?.data?.message || "Error al realizar la transacción.";
+      const res = errorMessage;
       toast.error(res);
     }
   };
