@@ -63,9 +63,7 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const [mascotas, setMascotas] = useState<MascotaRequest>(initialRequest);
-
   const { GetRazasOptions, dataLoaded, RazasList } = useRazas();
-
   const [isOpen, setIsOpen] = useState(false);
   const [IsEditing, setIsEditing] = useState<boolean>(false);
 
@@ -79,7 +77,6 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const {
-    Mascotas,
     IsLoading,
     ActualPage,
     totalPage,
@@ -102,7 +99,7 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
     onCheckChange,
     onCheckAllChange,
     setSelectedAll,
-  } = useMascotasMarcadas(Mascotas);
+  } = useMascotasMarcadas();
 
   const storage: IMascotasContext = {
     IsLoading,

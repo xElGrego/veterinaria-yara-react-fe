@@ -11,11 +11,15 @@ import { ModalGeneral } from "../../../shared/Components/Modal/ModalGeneral";
 import { ModalMascotaIndex } from "./ModalAgregar";
 import { selectRaza } from "../../../redux/Razas/razas.slice";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../../store/store";
+import { mascotasSelector } from "../../../redux/User/user.selector";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
   const { EstadosList, IsLoading: loadingEstados } = useEstados();
   const dispatch = useDispatch();
+
+  const Mascotas = useAppSelector(mascotasSelector);
 
   const {
     handleSubmit,
@@ -27,7 +31,6 @@ export const MascotasForm: FC = () => {
 
   const {
     setMascotas,
-    Mascotas,
     resetPagination,
     IsEditing,
     isOpen,

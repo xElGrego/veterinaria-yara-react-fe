@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { selectRaza } from "../../../redux/Razas/razas.slice";
 import useDeleteMascota from "../../../application/Mascotas/deleteMascota";
 import { toast } from "react-toastify";
+import { changeMascotaEstado } from "../../../redux/User/user.slice";
 
 interface DropDownMascotaProps {
   field: IMascota;
@@ -36,6 +37,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
   const handlerEliminar = async (idMascota: Guid) => {
     try {
       var res = await deleteMascota(idMascota);
+      dispatch(changeMascotaEstado({ mascotaId: idMascota, nuevoEstado: 3 }));
       toast.info(res);
     } catch (error) {
       toast.error("Hubo un error al eliminar a la máscota");

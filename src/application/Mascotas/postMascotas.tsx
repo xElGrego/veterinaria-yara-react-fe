@@ -11,7 +11,6 @@ const usePostMascotas = () => {
     req: IAddMascotaRequest
   ): Promise<IAddMascotaResponse> => {
     const res = await postMascotasServcices(req);
-    debugger;
     return res;
   };
   return {

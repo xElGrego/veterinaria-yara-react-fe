@@ -11,9 +11,13 @@ import MascotaContext, { IMascotasContext } from "../../MascotasProvider";
 import usePutMascotas from "../../../../application/Mascotas/putMascota";
 import { useAppSelector } from "../../../../store/store";
 import { razaSelector } from "../../../../redux/Razas/razas.selector";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { mascotasSelector } from "../../../../redux/User/user.selector";
+import { guardarMascota } from "../../../../redux/User/user.slice";
 
 export const ContentModal: FC = () => {
+  const dispatch = useDispatch();
+
   const {
     handleSubmit,
     register,
@@ -22,10 +26,12 @@ export const ContentModal: FC = () => {
     formState: { errors },
   } = useFormContext<IAddMascotaRequest>();
 
+  const Mascotas = useAppSelector(mascotasSelector);
+
   const { postMascotas } = usePostMascotas();
   const { putMascotas } = usePutMascotas();
 
-  const { dataLoaded, Mascotas, IsEditing, idMascotaSeleccionada } = useContext(
+  const { dataLoaded, IsEditing, idMascotaSeleccionada } = useContext(
     MascotaContext
   ) as IMascotasContext;
 
@@ -45,7 +51,7 @@ export const ContentModal: FC = () => {
   const handlerAgregarEditar = async () => {
     try {
       const params: IAddMascotaRequest = { ...getValues() };
-      params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16"; //! SETEADO
+      params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16";
       params.idRaza = razaSelected?.idRaza;
       if (IsEditing && idMascotaSeleccionada) {
         params.idMascota = idMascotaSeleccionada;
@@ -54,6 +60,7 @@ export const ContentModal: FC = () => {
       } else {
         var res = await postMascotas(params);
         toast.success(res.response);
+        dispatch(guardarMascota(params));
         reset();
       }
     } catch (error) {
