@@ -18,7 +18,6 @@ import { useMascotasMarcadas } from "./hooks/useMascotasMarcadas";
 export interface IMascotasContext {
   IsEditing: boolean;
   setIsEditing: (value: boolean) => void;
-  Mascotas: IMascota[];
   setMascotas: Dispatch<SetStateAction<MascotaRequest>>;
   IsLoading: boolean;
   dataLoaded: boolean;
@@ -106,7 +105,6 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   } = useMascotasMarcadas(Mascotas);
 
   const storage: IMascotasContext = {
-    Mascotas,
     IsLoading,
     setIsEditing,
     ActualPage,

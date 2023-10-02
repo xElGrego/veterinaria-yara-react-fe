@@ -31,7 +31,6 @@ export const RazasIndex: FC = () => {
             >
               Ingresar
             </button>
-
             <Drawer
               title="Agregar raza"
               placement="right"

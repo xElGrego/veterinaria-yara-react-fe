@@ -6,10 +6,12 @@ import MascotaContext, { IMascotasContext } from "../MascotasProvider";
 import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
+import { useAppSelector } from "../../../store/store";
+import { mascotasSelector } from "../../../redux/User/user.selector";
 
 export const MascotasList: FC = () => {
   const {
-    Mascotas,
+    /*  Mascotas, */
     ActualPage,
     TotalDocs,
     buttons,
@@ -22,6 +24,8 @@ export const MascotasList: FC = () => {
     onCheckChange,
     onCheckAllChange,
   } = useContext(MascotaContext) as IMascotasContext;
+
+  const Mascotas = useAppSelector(mascotasSelector);
 
   const obtenerRazonSocial = useRazonSocialPorIdEmpresa();
 

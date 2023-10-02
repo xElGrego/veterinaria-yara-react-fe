@@ -79,9 +79,9 @@ export const MascotasForm: FC = () => {
           <ModalMascotaIndex />
         </ModalGeneral>
       )}
-      {/* <button className="bg-red-300 p-2 mb-2 rounded-lg" onClick={handlePdf}>
+      <button className="bg-red-300 p-2 mb-2 rounded-lg" onClick={handlePdf}>
         PDF
-      </button> */}
+      </button>
       <form onSubmit={handleSubmit(handlerConsultar)} className="py-4">
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
           <InputText

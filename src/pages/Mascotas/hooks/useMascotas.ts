@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { IMascota, MascotaRequest } from "../../../domain/Mascotas/IMascota";
 import useGetMascotas from "../../../application/Mascotas/getMascotas";
 import usePagination from "../../../shared/hooks/usePagination";
+import { useDispatch } from "react-redux";
+import { loadMascotas } from "../../../redux/User/user.slice";
 
 const useMascotas = (initialRequest: MascotaRequest) => {
 
@@ -9,6 +11,8 @@ const useMascotas = (initialRequest: MascotaRequest) => {
     const [IsLoading, setIsLoading] = useState<boolean>(false);
     const [Mascotas, setMascotas] = useState<IMascota[]>([]);
     const [TotalDocs, setTotalDocs] = useState<number>(0);
+
+    const dispatch = useDispatch();
 
     const {
         ActualPage,
@@ -21,6 +25,7 @@ const useMascotas = (initialRequest: MascotaRequest) => {
         setIsLoading(true);
         var res = await getMascotas(initialRequest);
         setMascotas(res.data);
+        dispatch(loadMascotas(res.data))
         setIsLoading(false)
         setTotalDocs(res.pagination.total);
     };
