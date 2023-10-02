@@ -26,4 +26,6 @@ export interface EstadosServices {
 }
 export interface RazasServices {
   getListaRazas(): Promise<RazasResponnse[]>
+  postRaza(req: IAddRazaRequest): Promise<IAddRazaResponse>
+  deleteRaza(req: Guid): Promise<string>
 }

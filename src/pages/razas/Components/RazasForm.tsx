@@ -1,16 +1,20 @@
 import { FC } from "react";
 import { InputText } from "../../../shared/Components/InputText";
-import { RazaRequest } from "../../../domain/Razas/Razas";
 import { useFormContext } from "react-hook-form";
 import { useToastify } from "../../../hooks/Toastify";
 import { useDispatch } from "react-redux";
 import { guardarRaza } from "../../../redux/Razas/razas.slice";
 import { v4 as uuidv4 } from "uuid";
+import { IAddRazaRequest } from "../../../domain/Razas/IAddRaza";
+import usePostRazas from "../../../application/Razas/postRazas";
+import { toast } from "react-toastify";
 
 export const RazasForm: FC = () => {
-  const guid = uuidv4();
   const { onError } = useToastify();
+  const { postRaza } = usePostRazas();
   const dispatch = useDispatch();
+
+  const guid = uuidv4();
 
   const {
     handleSubmit,
@@ -18,16 +22,17 @@ export const RazasForm: FC = () => {
     reset,
     getValues,
     formState: { errors },
-  } = useFormContext<RazaRequest>();
+  } = useFormContext<IAddRazaRequest>();
 
   const handlerAgregar = async () => {
     try {
-      const params: RazaRequest = { ...getValues() };
+      const params: IAddRazaRequest = { ...getValues() };
       params.idRaza = guid;
-      console.log("Parms" + JSON.stringify(params));
+      var res = await postRaza(params);
+      toast.success(res.response);
       dispatch(guardarRaza(params));
     } catch (error) {
-      onError("Hubo un error.");
+      onError("Hubo un error al agregar la raza.");
     }
   };
 

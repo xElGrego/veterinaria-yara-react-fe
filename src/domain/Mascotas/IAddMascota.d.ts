@@ -9,5 +9,5 @@ export interface IAddMascotaRequest {
 }
 
 export interface IAddMascotaResponse {
-    response: boolean
+    response: string
 }

@@ -2,13 +2,29 @@ import { FC } from "react";
 import { razasSelector } from "../../../redux/Razas/razas.selector";
 import { useAppSelector } from "../../../store/store";
 import { RazasResponse } from "../../../domain/Razas/Razas";
-import moment from "moment";
 import useRazas from "../../../shared/hooks/useRazas";
+import useDeleteRaza from "../../../application/Razas/deleteRazas";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { eliminarRaza } from "../../../redux/Razas/razas.slice";
 
 export const RazasList: FC = () => {
+  const dispatch = useDispatch();
+  const { deleteRaza } = useDeleteRaza();
   const razas = useAppSelector(razasSelector);
 
   useRazas();
+
+  const handlerEliminar = async (idRaza: Guid) => {
+    try {
+      var res = await deleteRaza(idRaza);
+      toast.success(res);
+      dispatch(eliminarRaza(idRaza));
+    } catch (error: any) {
+      const res = error.response.data.message;
+      toast.error(res);
+    }
+  };
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 my-2 text-xs w-auto">
@@ -32,6 +48,12 @@ export const RazasList: FC = () => {
                         >
                           Descripcion
                         </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden"
+                        >
+                          Opciones
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="text-center divide-y text-white">
@@ -42,6 +64,11 @@ export const RazasList: FC = () => {
                           </td>
                           <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.descripcion}
+                          </td>
+                          <td>
+                            <button onClick={() => handlerEliminar(el.idRaza)}>
+                              Eliminar
+                            </button>
                           </td>
                         </tr>
                       ))}

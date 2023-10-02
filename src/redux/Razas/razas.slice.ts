@@ -25,9 +25,13 @@ export const razaSlice = createSlice({
         guardarRaza: (state, action) => {
             const nuevaRaza = action.payload;
             state.razas.push(nuevaRaza);
+        },
+        eliminarRaza: (state, action) => {
+            const idRazaAEliminar = action.payload;
+            state.razas = state.razas.filter((raza) => raza.idRaza !== idRazaAEliminar);
         }
     }
 });
 
-export const { loadRaza, selectRaza, guardarRaza } = razaSlice.actions;
+export const { loadRaza, selectRaza, guardarRaza, eliminarRaza } = razaSlice.actions;
 export default razaSlice.reducer;

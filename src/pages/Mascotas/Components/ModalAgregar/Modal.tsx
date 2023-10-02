@@ -70,7 +70,6 @@ export const ContentModal: FC = () => {
   };
 
   const razas = useSelector((store: any) => store.razas.razas);
-
   const [updateKey, setUpdateKey] = useState(0);
 
   useEffect(() => {
