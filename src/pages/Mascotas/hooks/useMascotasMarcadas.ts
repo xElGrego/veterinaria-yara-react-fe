@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { ObjectSend } from "../../../domain/Mascotas/ObjectSend";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { mascotasSelector } from "../../../redux/User/user.selector";
 import { useAppSelector } from "../../../store/store";
 
 export const useMascotasMarcadas = () => {
 
   const mascotas = useAppSelector(mascotasSelector);
-
 
   const [checked, setChecked] = useState<ObjectSend[]>([]);
   const [indeterminate, setIndeterminate] = useState<boolean>(false);

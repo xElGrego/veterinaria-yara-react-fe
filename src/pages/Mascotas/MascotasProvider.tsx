@@ -5,7 +5,7 @@ import {
   createContext,
   useState,
 } from "react";
-import { IMascota, MascotaRequest } from "../../domain/Mascotas/IMascota";
+import { MascotaRequest } from "../../domain/Mascotas/IMascota";
 import useMascotas from "./hooks/useMascotas";
 import { IPaginationButtonsProps } from "../../shared/Components/PaginationButtons";
 import moment from "moment";
