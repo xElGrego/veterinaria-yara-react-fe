@@ -1,5 +1,5 @@
-import { FC, useContext } from "react";
-import { useFormContext } from "react-hook-form";
+import { FC, useContext, useEffect } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import { useToastify } from "../../../hooks/Toastify";
 import { InputText } from "../../../shared/Components/InputText";
 import useEstados from "../../../shared/hooks/useEstados";
@@ -13,6 +13,8 @@ import { selectRaza } from "../../../redux/Razas/razas.slice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../store/store";
 import { mascotasSelector } from "../../../redux/User/user.selector";
+import { fromEvent, interval, of } from "rxjs";
+import { debounceTime, map, switchMap } from "rxjs/operators";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();
@@ -71,6 +73,27 @@ export const MascotasForm: FC = () => {
     console.log("Marcados algunos");
   };
 
+  useEffect(() => {
+    const input = document.querySelector('input[name="nombre"]');
+
+    if (input) {
+      const inputObservable = fromEvent(input, "input").pipe(
+        map((event) => (event.target as HTMLInputElement).value),
+        debounceTime(2000)
+      );
+      const subscription = inputObservable.subscribe(async () => {
+        const params: MascotaRequest = { ...getValues() };
+        params.start = 0;
+        await setMascotas(params);
+        resetPagination();
+      });
+
+      return () => {
+        subscription.unsubscribe();
+      };
+    }
+  }, [name]);
+
   return (
     <>
       {isOpen && (
@@ -82,9 +105,6 @@ export const MascotasForm: FC = () => {
           <ModalMascotaIndex />
         </ModalGeneral>
       )}
-      <button className="bg-red-300 p-2 mb-2 rounded-lg" onClick={handlePdf}>
-        PDF
-      </button>
       <form onSubmit={handleSubmit(handlerConsultar)} className="py-4">
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
           <InputText
