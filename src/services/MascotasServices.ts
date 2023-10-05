@@ -7,7 +7,7 @@ import MascotaClient from "./configurationt";
 const useMascotasServices = (): MascotasServices => {
     const getMascotas = async (req: MascotaRequest): Promise<ItemsPaginationResponse<IMascota>> => {
         const idUsuarioParam = req.idUsuario ? `idUsuario=${req.idUsuario}` : '';
-        let params = `consulta-mascotas?start=${req.start}&lenght=${req.length}&estado=${req.estado}&fechaInicio=${req.fechaInicio}&fechaFin=${req.fechaFin}`;
+        let params = `consulta-mascotas?start=${req.start}&lenght=${req.length}&nombre=${req.nombre}&estado=${req.estado}&fechaInicio=${req.fechaInicio}&fechaFin=${req.fechaFin}`;
         if (idUsuarioParam) {
             params += `&${idUsuarioParam}`;
         }

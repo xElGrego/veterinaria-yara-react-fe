@@ -11,7 +11,6 @@ export const Mascotas: FC = () => {
   const mascotasForm: MascotaRequest = {
     idUsuario: "",
     nombre: "",
-    descripcion: "",
     estado: 1,
     start: 0,
     length: 10,
@@ -22,7 +21,6 @@ export const Mascotas: FC = () => {
   const schema = yup.object().shape({
     idUsuario: yup.string().optional(),
     nombre: yup.string().optional(),
-    descripcion: yup.string().optional(),
     estado: yup.number().required("El estado es obligatorio"),
     start: yup.number().required(),
     length: yup.number().required(),

@@ -54,7 +54,6 @@ export const MascotaProvider = ({ children }: { children: ReactNode }) => {
   const initialRequest: MascotaRequest = {
     idUsuario: "",
     nombre: "",
-    descripcion: "",
     estado: 1,
     start: 0,
     length: 10,

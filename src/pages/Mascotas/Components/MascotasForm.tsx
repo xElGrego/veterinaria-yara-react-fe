@@ -93,12 +93,7 @@ export const MascotasForm: FC = () => {
             error={errors.nombre?.message}
             register={register}
           />
-          <InputText
-            label="Descripcion"
-            name="descripcion"
-            error={errors.descripcion?.message}
-            register={register}
-          />
+
           <InputDate
             order="true"
             name="fechaInicio"
