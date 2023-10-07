@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { selectRaza } from "../../../redux/Razas/razas.slice";
 import useDeleteMascota from "../../../application/Mascotas/deleteMascota";
 import { toast } from "react-toastify";
-import { changeMascotaEstado } from "../../../redux/User/user.slice";
+import { changeMascotaEstado } from "../../../redux/Mascotas/mascotas.slice";
 
 interface DropDownMascotaProps {
   field: IMascota;

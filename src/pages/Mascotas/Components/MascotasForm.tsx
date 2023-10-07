@@ -12,9 +12,9 @@ import { ModalMascotaIndex } from "./ModalAgregar";
 import { selectRaza } from "../../../redux/Razas/razas.slice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../store/store";
-import { mascotasSelector } from "../../../redux/User/user.selector";
 import { fromEvent, interval, of } from "rxjs";
 import { debounceTime, map, switchMap } from "rxjs/operators";
+import { mascotasSelector } from "../../../redux/Mascotas/mascotasSelector";
 
 export const MascotasForm: FC = () => {
   const { onError } = useToastify();

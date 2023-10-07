@@ -3,7 +3,7 @@ import { IMascota, MascotaRequest } from "../../../domain/Mascotas/IMascota";
 import useGetMascotas from "../../../application/Mascotas/getMascotas";
 import usePagination from "../../../shared/hooks/usePagination";
 import { useDispatch } from "react-redux";
-import { loadMascotas } from "../../../redux/User/user.slice";
+import { loadMascotas } from "../../../redux/Mascotas/mascotas.slice";
 
 const useMascotas = (initialRequest: MascotaRequest) => {
 

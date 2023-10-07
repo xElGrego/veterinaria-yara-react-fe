@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useState } from "react";
-import { Button } from "../Button";
+import { Button } from "../../../../shared/Components/Buttons/Button";
 import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
 import { useFormContext } from "react-hook-form";
 import { InputText } from "../../../../shared/Components/InputText";
@@ -12,8 +12,8 @@ import usePutMascotas from "../../../../application/Mascotas/putMascota";
 import { useAppSelector } from "../../../../store/store";
 import { razaSelector } from "../../../../redux/Razas/razas.selector";
 import { useDispatch, useSelector } from "react-redux";
-import { mascotasSelector } from "../../../../redux/User/user.selector";
-import { guardarMascota } from "../../../../redux/User/user.slice";
+import { mascotasSelector } from "../../../../redux/Mascotas/mascotasSelector";
+import { guardarMascota } from "../../../../redux/Mascotas/mascotas.slice";
 
 export const ContentModal: FC = () => {
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ export const ContentModal: FC = () => {
   const handlerAgregarEditar = async () => {
     try {
       const params: IAddMascotaRequest = { ...getValues() };
-      params.idUsuario = "B08F6773-96C5-4E77-B0C0-00A10A149C16";
+      params.idUsuario = "9F30F769-0D00-4948-B33D-996553BEA433";
       params.idRaza = razaSelected?.idRaza;
       if (IsEditing && idMascotaSeleccionada) {
         params.idMascota = idMascotaSeleccionada;

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ObjectSend } from "../../../domain/Mascotas/ObjectSend";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { mascotasSelector } from "../../../redux/User/user.selector";
 import { useAppSelector } from "../../../store/store";
+import { mascotasSelector } from "../../../redux/Mascotas/mascotasSelector";
 
 export const useMascotasMarcadas = () => {
 

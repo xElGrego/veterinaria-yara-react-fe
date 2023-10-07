@@ -7,8 +7,8 @@ import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
 import { useAppSelector } from "../../../store/store";
-import { mascotasSelector } from "../../../redux/User/user.selector";
 import { Spinner } from "../../../shared/Components/Spinner";
+import { mascotasSelector } from "../../../redux/Mascotas/mascotasSelector";
 
 export const MascotasList: FC = () => {
   const {
@@ -46,11 +46,15 @@ export const MascotasList: FC = () => {
                 <thead className="text-center divide-y top-0 z-50 bg-white divide-gray-200 dark:divide-gray-700 dark:bg-gray-800 dark:text-gray-400">
                   <tr className="">
                     <th>
-                      <Checkbox
-                        indeterminate={indeterminate}
-                        onChange={onCheckAllChange}
-                        checked={checkAll}
-                      ></Checkbox>
+                      {Mascotas.length > 0 ? (
+                        <Checkbox
+                          indeterminate={indeterminate}
+                          onChange={onCheckAllChange}
+                          checked={checkAll}
+                        ></Checkbox>
+                      ) : (
+                        <></>
+                      )}
                     </th>
                     <th scope="col" className="py-3.5 pl-4 pr-3 sm:pl-6">
                       Nombre
@@ -101,12 +105,9 @@ export const MascotasList: FC = () => {
                           <td>
                             <Checkbox
                               value={el.idMascota}
-                              checked={
-                                selectedAll ||
-                                checked.some(
-                                  (item) => item.idMascota === el.idMascota
-                                )
-                              }
+                              checked={checked.some(
+                                (item) => item.idMascota === el.idMascota
+                              )}
                               onChange={() =>
                                 onCheckChange({
                                   idMascota: el.idMascota,

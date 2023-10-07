@@ -16,6 +16,3 @@ export const nombreSelector = createSelector(userState, (state: UserState) => {
   return state.user.nombres;
 });
 
-export const mascotasSelector = createSelector(userState, (state: UserState) => {
-  return state.mascotas;
-});

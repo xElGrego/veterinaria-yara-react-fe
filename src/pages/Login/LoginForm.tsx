@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InputText } from "../../shared/Components/InputText";
 import { Spinner } from "../../shared/Components/Spinner";
+import { Button } from "../../shared/Components/Buttons/Button";
 
 export const LoginForm: FC = () => {
   const { postLogin } = usePostLogin();
@@ -63,16 +64,11 @@ export const LoginForm: FC = () => {
       </div>
 
       {!IsLoading ? (
-        <button
-          type="submit"
-          className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
-        >
-          Ingresar
-        </button>
+        <Button type="submit" title="Ingresar" />
       ) : (
         <button
           disabled
-          className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
+          className="w-full inline-block rounded px-4 pb-2 pt-2.5 text-xs font-normal text-black shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] dark:shadow-[0_4px_9px_-4px_#030202] dark:hover:shadow-[0_8px_9px_-4px_rgba(3,2,2,0.3),0_4px_18px_0_rgba(3,2,2,0.2)] dark:focus:shadow-[0_8px_9px_-4px_rgba(3,2,2,0.3),0_4px_18px_0_rgba(3,2,2,0.2)] dark:active:shadow-[0_8px_9px_-4px_rgba(3,2,2,0.3),0_4px_18px_0_rgba(3,2,2,0.2)]"
         >
           <Spinner class="w-4 h-4 text-blue-600 dark:text-white" />
           Cargando
