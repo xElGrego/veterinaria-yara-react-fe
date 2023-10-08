@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { MascotaState, initialState } from "./mascotas.state";
 
 export const mascotaSlice = createSlice({
-    name: "user",
+    name: "mascotas",
     initialState,
     reducers: {
         loadMascotas: (state: MascotaState, action) => {

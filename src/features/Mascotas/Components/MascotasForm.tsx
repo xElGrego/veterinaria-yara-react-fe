@@ -5,7 +5,7 @@ import { InputText } from "../../../shared/Components/InputText";
 import useEstados from "../../../shared/hooks/useEstados";
 import InputSelect from "../../../shared/Components/InputSelect";
 import { MascotaRequest } from "../../../domain/Mascotas/IMascota";
-import MascotaContext, { IMascotasContext } from "../MascotasProvider";
+import MascotaContext, { IMascotasContext } from "../provider";
 import { InputDate } from "../../../shared/Components/InputDate";
 import { ModalGeneral } from "../../../shared/Components/Modal/ModalGeneral";
 import { ModalMascotaIndex } from "./ModalAgregar";
@@ -55,7 +55,6 @@ export const MascotasForm: FC = () => {
 
   const handlerLimpiar = () => {
     reset();
-    Mascotas.splice(0, Mascotas.length);
   };
 
   const toggleModal = () => {

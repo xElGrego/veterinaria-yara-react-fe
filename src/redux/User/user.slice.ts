@@ -6,13 +6,25 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     saveUser: (state: UserState, action) => {
-      const { nombres, apellidos, correo, token, rol } = action.payload;
-      state.user = { ...state.user, nombres, apellidos, correo, token, rol };
+      state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(state.user));
     },
-
+    logout: (state: UserState) => {
+      state.user = null;
+      localStorage.removeItem("user");
+      localStorage.removeItem("toke");
+    },
+    loadUsuarios: (state: UserState, action) => {
+      if (action.payload != null) {
+        state.usuarios = action.payload;
+      }
+    },
+    guardarUsuario: (state: UserState, action) => {
+      const mascota = action.payload;
+      state.usuarios.push(mascota);
+    },
   },
 });
 
-export const { saveUser } = userSlice.actions;
+export const { saveUser, logout, guardarUsuario, loadUsuarios } = userSlice.actions;
 export default userSlice.reducer;

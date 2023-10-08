@@ -2,12 +2,13 @@ import { Transition } from "@headlessui/react";
 import useComponenModal from "../hooks/useModal";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { FC, useContext } from "react";
-import MascotaContext, { IMascotasContext } from "../MascotasProvider";
+import MascotaContext, { IMascotasContext } from "../provider";
 import { useDispatch } from "react-redux";
 import { selectRaza } from "../../../redux/Razas/razas.slice";
 import useDeleteMascota from "../../../application/Mascotas/deleteMascota";
 import { toast } from "react-toastify";
 import { changeMascotaEstado } from "../../../redux/Mascotas/mascotas.slice";
+import useActivarMascota from "../../../application/Mascotas/activarMascota";
 
 interface DropDownMascotaProps {
   field: IMascota;
@@ -17,6 +18,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
   const dispatch = useDispatch();
 
   const { deleteMascota } = useDeleteMascota();
+  const { activarMascota } = useActivarMascota();
 
   const { toggleDropdown, dropdownRef, isOpen, setIsOpen } = useComponenModal();
 
@@ -39,6 +41,16 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
       var res = await deleteMascota(idMascota);
       dispatch(changeMascotaEstado({ mascotaId: idMascota, nuevoEstado: 3 }));
       toast.info(res);
+    } catch (error) {
+      toast.error("Hubo un error al eliminar a la máscota");
+    }
+  };
+
+  const handlerActivar = async (idMascota: Guid) => {
+    try {
+      var res = await activarMascota(idMascota);
+      dispatch(changeMascotaEstado({ mascotaId: idMascota, nuevoEstado: 2 }));
+      toast.success(res);
     } catch (error) {
       toast.error("Hubo un error al eliminar a la máscota");
     }
@@ -149,7 +161,7 @@ export const DropDownMascota: FC<DropDownMascotaProps> = ({ field }) => {
                 ) : (
                   <button
                     className="w-full flex items-center gap-x-1 my-2  mx-2 "
-                    onClick={() => handlerEliminar(field.idMascota)}
+                    onClick={() => handlerActivar(field.idMascota)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

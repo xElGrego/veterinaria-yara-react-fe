@@ -7,16 +7,19 @@ import { Spinner } from "../../../../shared/Components/Spinner";
 import usePostMascotas from "../../../../application/Mascotas/postMascotas";
 import { toast } from "react-toastify";
 import { InputRaza } from "../../../../shared/Components/Inputs/InputRaza";
-import MascotaContext, { IMascotasContext } from "../../MascotasProvider";
+import MascotaContext, { IMascotasContext } from "../../provider";
 import usePutMascotas from "../../../../application/Mascotas/putMascota";
 import { useAppSelector } from "../../../../store/store";
 import { razaSelector } from "../../../../redux/Razas/razas.selector";
 import { useDispatch, useSelector } from "react-redux";
 import { mascotasSelector } from "../../../../redux/Mascotas/mascotasSelector";
 import { guardarMascota } from "../../../../redux/Mascotas/mascotas.slice";
+import { idUsuarioSelector } from "../../../../redux/User/user.selector";
 
 export const ContentModal: FC = () => {
   const dispatch = useDispatch();
+
+  const idUsuario = useAppSelector(idUsuarioSelector);
 
   const {
     handleSubmit,
@@ -51,7 +54,7 @@ export const ContentModal: FC = () => {
   const handlerAgregarEditar = async () => {
     try {
       const params: IAddMascotaRequest = { ...getValues() };
-      params.idUsuario = "9F30F769-0D00-4948-B33D-996553BEA433";
+      params.idUsuario = idUsuario;
       params.idRaza = razaSelected?.idRaza;
       if (IsEditing && idMascotaSeleccionada) {
         params.idMascota = idMascotaSeleccionada;

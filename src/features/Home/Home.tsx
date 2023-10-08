@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { SideBar } from "./Components/Header";
+import { SideBar } from "./Components/Sidebar";
 import { Outlet } from "react-router-dom";
 
 export const Home: FC = () => {

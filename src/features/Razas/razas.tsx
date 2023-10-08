@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { RazasForm } from "./Components/RazasForm";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IAddRazaRequest } from "../../domain/Razas/IAddRaza";
+import { RazasForm } from "./Components/RazasForm";
 
 export const Razas: FC = () => {
   const razasForm: IAddRazaRequest = {

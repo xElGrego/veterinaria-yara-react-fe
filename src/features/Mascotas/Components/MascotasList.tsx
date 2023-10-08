@@ -2,7 +2,7 @@ import { FC, useContext, useEffect } from "react";
 import { Checkbox } from "antd";
 import moment from "moment";
 import { DropDownMascota } from "./ListDropDown";
-import MascotaContext, { IMascotasContext } from "../MascotasProvider";
+import MascotaContext, { IMascotasContext } from "../provider";
 import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
 import { IMascota } from "../../../domain/Mascotas/IMascota";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
@@ -41,9 +41,9 @@ export const MascotasList: FC = () => {
       <div className=" flex flex-col ">
         <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className=" min-w-full py-2 align-middle">
-            <div className="ring-1 ring-black max-h-[65vh] overflow-x-auto w-auto ring-opacity-5 md:rounded-lg shadow bg-white dark:bg-gray-900">
+            <div className="ring-1 max-h-[65vh] overflow-x-auto w-auto ring-opacity-5 md:rounded-lg shadow  ">
               <table className="min-w-full table-fixed   divide-y w-auto divide-gray-300 dark:divide-gray-700 ">
-                <thead className="text-center divide-y top-0 z-50 bg-white divide-gray-200 dark:divide-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                <thead className="text-center divide-y top-0 z-50 dark:bg-neutral-800 dark:text-white">
                   <tr className="">
                     <th>
                       {Mascotas.length > 0 ? (
@@ -97,7 +97,7 @@ export const MascotasList: FC = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="text-center divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800 dark:text-white">
+                <tbody className="text-center divide-y text-black">
                   {!IsLoading ? (
                     Mascotas.length > 0 ? (
                       Mascotas.map((el: IMascota, key: number) => (
@@ -117,27 +117,27 @@ export const MascotasList: FC = () => {
                               }
                             />
                           </td>
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                          <td className="text-black py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.nombre}
                           </td>
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                          <td className="text-black py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.mote}
                           </td>
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                          <td className="text-black py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.edad}
                           </td>
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                          <td className="text-black py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.peso}
                           </td>
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                          <td className="text-black py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {obtenerRazonSocial(el.idRaza)}
                           </td>
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                          <td className="text-black py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {moment(el.fechaIngreso).format(
                               "DD-MM-YYYY HH:mm:ss"
                             )}
                           </td>
-                          <td className="text-white py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
+                          <td className="text-black py-3.5 pl-4 pr-3 sm:pl-6 lg:table-cell hidden">
                             {el.estado === 2
                               ? "Activo"
                               : el.estado === 3
@@ -167,7 +167,7 @@ export const MascotasList: FC = () => {
               </table>
             </div>
             {Mascotas.length > 0 && (
-              <div className="dark:text-gray-400 py-3 flex items-center justify-between border-gray-200 dark:border-gray-700">
+              <div className=" dark:text-gray-400 py-3 flex items-center justify-between border-gray-200  ">
                 <div className="hidden sm:flex-1 sm:flex sm:items-center">
                   <span className="text-sm font-normal ml-2 text-gray-400 dark:text-gray-400"></span>
                   Mostrando
@@ -184,6 +184,7 @@ export const MascotasList: FC = () => {
                     </span>
                   )}
                 </div>
+
                 <PaginationButtons {...buttons} />
               </div>
             )}

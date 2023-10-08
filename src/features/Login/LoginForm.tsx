@@ -37,11 +37,13 @@ export const LoginForm: FC = () => {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
+      debugger;
       const params: LoginRequest = { ...getValues() };
       await postLogin(params);
       navigate("/dashboard");
     } catch (error) {
-      onError("Hubo un error al iniciar sesión");
+      onError("Hubo un error al iniciar sesiónxd");
+      debugger;
     }
     setIsLoading(false);
   };

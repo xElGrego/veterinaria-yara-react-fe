@@ -5,7 +5,7 @@ import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Drawer } from "antd";
-import { Razas } from "../../../razas/Razas";
+import { Razas } from "../../../Razas/razas";
 
 export const ModalMascotaIndex: FC = () => {
   const mascotaForm: IAddMascotaRequest = {

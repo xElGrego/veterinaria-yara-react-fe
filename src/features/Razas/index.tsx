@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
-import { RazasProvider } from "./RazasProvider";
+import { RazasProvider } from "./provider";
 import { RazasList } from "./Components/RazasList";
 import { Drawer } from "antd";
-import { Razas } from "./Razas";
+import { Razas } from "./razas";
 
 export const RazasIndex: FC = () => {
   const [open, setOpen] = useState(false);

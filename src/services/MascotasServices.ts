@@ -43,11 +43,22 @@ const useMascotasServices = (): MascotasServices => {
         return res.data.data.response;
     }
 
+    const ActivarMascota = async (req: Guid): Promise<string> => {
+        let res = await MascotaClient.get("/veterinaria-yara/activar-mascota", {
+            headers: {
+                "IdMascota": req.toString()
+            }
+        },
+        );
+        return res.data.data.response;
+    }
+
     return {
         getMascotas,
         postMascota,
         putMascota,
-        deleteMascota
+        deleteMascota,
+        ActivarMascota
     }
 }
 
