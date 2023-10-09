@@ -5,6 +5,9 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IMascota } from "../../../../domain/Mascotas/IMascota";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { useOrdenartMascotas } from "../../../../application/Mascotas/ordenarMascota";
+import { IOrderMascota } from "../../../../domain/Mascotas/OrderMascotas";
+import { Button } from "../../../../shared/Components/Buttons/Button";
 
 export const UsuariosMascotasIndex: FC = () => {
   const navigate = useNavigate();
@@ -13,6 +16,8 @@ export const UsuariosMascotasIndex: FC = () => {
 
   const { mascotas, reorderMascotas } = useUsuariosMascotas(location.id!);
 
+  const { orderMascotas } = useOrdenartMascotas();
+
   const onDragEnd = (result: any) => {
     if (!result.destination) {
       return;
@@ -20,21 +25,13 @@ export const UsuariosMascotasIndex: FC = () => {
     reorderMascotas(result.source.index, result.destination.index);
   };
 
-  useEffect(() => {
-    return () => {
-      console.log("Navegando ");
-    };
-  }, [navigate]);
-
-  useEffect(() => {
-    const handleBeforeUnload = async () => {
-      console.log("Saliendo ");
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  const guardar = () => {
+    const mascotasParaEnviar: IOrderMascota[] = mascotas.map((mascota) => ({
+      idMascota: mascota.idMascota,
+      orden: mascota.orden,
+    }));
+    orderMascotas(mascotasParaEnviar);
+  };
 
   return (
     <section className="mx-2 rounded-lg px-4 py-2 mt-2 w-full">
@@ -89,6 +86,11 @@ export const UsuariosMascotasIndex: FC = () => {
               )}
             </Droppable>
           </DragDropContext>
+        </div>
+        <div className="mt-10">
+          <div className="w-20">
+            <Button title="Guardar" onClick={guardar}></Button>
+          </div>
         </div>
       </div>
     </section>

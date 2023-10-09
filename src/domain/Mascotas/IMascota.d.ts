@@ -1,5 +1,5 @@
 export interface IMascota {
-    idMascota: string;
+    idMascota: Guid;
     idUsuario: string;
     nombre: string;
     mote: string;

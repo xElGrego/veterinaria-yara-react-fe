@@ -25,6 +25,7 @@ export interface MascotasServices {
   putMascota(req: IAddMascotaRequest): Promise<IAddMascotaResponse>
   deleteMascota(req: Guid): Promise<string>
   ActivarMascota(req: Guid): Promise<string>
+  OrderMascotas(req: IOrderMascota[]): Promise<string>
 }
 
 export interface EstadosServices {

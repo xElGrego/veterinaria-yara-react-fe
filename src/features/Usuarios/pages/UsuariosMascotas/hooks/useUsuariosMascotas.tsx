@@ -22,7 +22,6 @@ export const useUsuariosMascotas = (idUsuario: Guid) => {
     });
 
     setMascotas(updatedMascotas);
-    debugger;
   };
 
   useEffect(() => {

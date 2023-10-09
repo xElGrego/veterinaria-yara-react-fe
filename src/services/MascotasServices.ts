@@ -1,6 +1,7 @@
 import { ItemsPaginationResponse, MascotasServices } from "../application/ports"
 import { IAddMascotaRequest, IAddMascotaResponse } from "../domain/Mascotas/IAddMascota";
 import { IMascota, MascotaRequest } from "../domain/Mascotas/IMascota";
+import { IOrderMascota } from "../domain/Mascotas/OrderMascotas";
 import MascotaClient from "./configurationt";
 
 
@@ -67,13 +68,19 @@ const useMascotasServices = (): MascotasServices => {
         return res.data.data.response;
     }
 
+    const OrderMascotas = async (req: IOrderMascota[]): Promise<string> => {
+        let res = await MascotaClient.post("/veterinaria-yara/ordenar-mascota", req);
+        return res.data.data;
+    }
+
     return {
         getMascotas,
         postMascota,
         putMascota,
         deleteMascota,
         ActivarMascota,
-        GetMascotasUsuarios
+        GetMascotasUsuarios,
+        OrderMascotas
     }
 }
 
