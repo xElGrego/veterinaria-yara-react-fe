@@ -17,9 +17,12 @@ export const useUsuariosMascotas = (idUsuario: Guid) => {
     const updatedMascotas = [...mascotas];
     const [reorderedMascota] = updatedMascotas.splice(startIndex, 1);
     updatedMascotas.splice(endIndex, 0, reorderedMascota);
-    reorderedMascota.orden = endIndex + 1;
-    debugger;
+    updatedMascotas.forEach((mascota, index) => {
+      mascota.orden = index + 1;
+    });
+
     setMascotas(updatedMascotas);
+    debugger;
   };
 
   useEffect(() => {
