@@ -11,3 +11,8 @@
 .input-general{
     @apply w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500
 }
+
+
+.react-beautiful-dnd-disable-animations {
+    transition: none !important;
+  }

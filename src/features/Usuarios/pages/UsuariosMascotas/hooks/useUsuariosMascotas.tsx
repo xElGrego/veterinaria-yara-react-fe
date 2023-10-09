@@ -18,6 +18,7 @@ export const useUsuariosMascotas = (idUsuario: Guid) => {
     const [reorderedMascota] = updatedMascotas.splice(startIndex, 1);
     updatedMascotas.splice(endIndex, 0, reorderedMascota);
     reorderedMascota.orden = endIndex + 1;
+    debugger;
     setMascotas(updatedMascotas);
   };
 

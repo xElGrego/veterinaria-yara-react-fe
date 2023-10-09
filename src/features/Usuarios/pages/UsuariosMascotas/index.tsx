@@ -1,10 +1,14 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useUsuariosMascotas } from "./hooks/useUsuariosMascotas";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IMascota } from "../../../../domain/Mascotas/IMascota";
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 export const UsuariosMascotasIndex: FC = () => {
+  const navigate = useNavigate();
+  const guid = uuidv4();
   const location = useParams();
 
   const { mascotas, reorderMascotas } = useUsuariosMascotas(location.id!);
@@ -15,6 +19,22 @@ export const UsuariosMascotasIndex: FC = () => {
     }
     reorderMascotas(result.source.index, result.destination.index);
   };
+
+  useEffect(() => {
+    return () => {
+      console.log("Navegando ");
+    };
+  }, [navigate]);
+
+  useEffect(() => {
+    const handleBeforeUnload = async () => {
+      console.log("Saliendo ");
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <section className="mx-2 rounded-lg px-4 py-2 mt-2 w-full">
@@ -27,13 +47,10 @@ export const UsuariosMascotasIndex: FC = () => {
       <div className="my-2 ">
         <div className="max-w-md mx-auto bg-white shadow-md overflow-hidden rounded-lg">
           <DragDropContext onDragEnd={onDragEnd}>
-            {mascotas.map((mascota: IMascota, index: number) => (
-              <Droppable
-                key={mascota.idMascota}
-                droppableId={mascota.idMascota}
-              >
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
+            <Droppable droppableId={guid}>
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {mascotas.map((mascota: IMascota, index: number) => (
                     <Draggable
                       key={mascota.idMascota}
                       draggableId={mascota.idMascota}
@@ -66,11 +83,11 @@ export const UsuariosMascotasIndex: FC = () => {
                         </div>
                       )}
                     </Draggable>
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            ))}
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
           </DragDropContext>
         </div>
       </div>
