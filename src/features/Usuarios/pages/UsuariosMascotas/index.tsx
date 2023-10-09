@@ -16,21 +16,11 @@ export const UsuariosMascotasIndex: FC = () => {
 
   const { mascotas, reorderMascotas } = useUsuariosMascotas(location.id!);
 
-  const { orderMascotas } = useOrdenartMascotas();
-
   const onDragEnd = (result: any) => {
     if (!result.destination) {
       return;
     }
     reorderMascotas(result.source.index, result.destination.index);
-  };
-
-  const guardar = () => {
-    const mascotasParaEnviar: IOrderMascota[] = mascotas.map((mascota) => ({
-      idMascota: mascota.idMascota,
-      orden: mascota.orden,
-    }));
-    orderMascotas(mascotasParaEnviar);
   };
 
   return (
@@ -86,11 +76,6 @@ export const UsuariosMascotasIndex: FC = () => {
               )}
             </Droppable>
           </DragDropContext>
-        </div>
-        <div className="mt-10">
-          <div className="w-20">
-            <Button title="Guardar" onClick={guardar}></Button>
-          </div>
         </div>
       </div>
     </section>
