@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { MascotaProvider } from "./provider";
-import { Mascotas } from "./Mascotas";
+import { Mascotas } from "./mascotas";
 
 export const MascotaIndex: FC = () => {
   return (

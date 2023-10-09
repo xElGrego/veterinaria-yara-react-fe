@@ -6,6 +6,7 @@ import { usuariosSelector } from "../../../redux/User/user.selector";
 import { User } from "../../../domain/User/User";
 import { Spinner } from "../../../shared/Components/Spinner";
 import { PaginationButtons } from "../../../shared/Components/PaginationButtons";
+import { DropDownUsuaurio } from "./DropDown";
 
 export const UsuariosList: FC = () => {
   const { IsLoading, ActualPage, TotalDocs, buttons } = useContext(
@@ -79,9 +80,9 @@ export const UsuariosList: FC = () => {
                             {el.rol.length > 0 ? el.rol.join(" - ") : "-"}
                           </td>
 
-                          {/* <td className="py-3.5 pl-4 pr-3 sm:pl-6">
-                            <DropDownMascota field={el} />
-                          </td> */}
+                          <td className="py-3.5 pl-4 pr-3 sm:pl-6">
+                            <DropDownUsuaurio field={el} />
+                          </td>
                         </tr>
                       ))
                     ) : (

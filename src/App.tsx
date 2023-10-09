@@ -4,6 +4,7 @@ import { Home } from "./features/Home/Home";
 import { RazasIndex } from "./features/Razas";
 import { MascotaIndex } from "./features/Mascotas";
 import { UsuarioIndex } from "./features/Usuarios";
+import { UsuariosMascotasIndex } from "./features/Usuarios/pages/UsuariosMascotas";
 
 export function App() {
   return (
@@ -15,6 +16,10 @@ export function App() {
           <Route path="mascotas" element={<MascotaIndex />} />
           <Route path="razas" element={<RazasIndex />} />
           <Route path="usuarios" element={<UsuarioIndex />} />
+          <Route
+            path="usuarios/mascotas/:id"
+            element={<UsuariosMascotasIndex />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -23,6 +23,20 @@ const useMascotasServices = (): MascotasServices => {
         return { data: parsed, pagination: request.data.data.pagination }
     }
 
+    const GetMascotasUsuarios = async (start: number, length: number, idUsuario: Guid): Promise<IMascota[]> => {
+        let params = `consulta-mascotas-usuarios?start=${start}&lenght=${length}&idUsuario=${idUsuario}`;
+        let request = await MascotaClient.get("/veterinaria-yara/" + params);
+        const parsed: IMascota[] = request.data.data.consulta.map(
+            (el: IMascota) => {
+                return {
+                    ...el,
+                };
+            }
+        );
+        return parsed;
+    }
+
+
     const postMascota = async (req: IAddMascotaRequest): Promise<IAddMascotaResponse> => {
         let res = await MascotaClient.post("/veterinaria-yara/crear-mascota", { ...req });
         return res.data.data;
@@ -58,7 +72,8 @@ const useMascotasServices = (): MascotasServices => {
         postMascota,
         putMascota,
         deleteMascota,
-        ActivarMascota
+        ActivarMascota,
+        GetMascotasUsuarios
     }
 }
 

@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect } from "react";
 import { Checkbox } from "antd";
 import moment from "moment";
-import { DropDownMascota } from "./ListDropDown";
+import { DropDownMascota } from "./DropDown";
 import MascotaContext, { IMascotasContext } from "../provider";
 import useRazonSocialPorIdEmpresa from "../../../shared/hooks/useRazaId";
 import { IMascota } from "../../../domain/Mascotas/IMascota";

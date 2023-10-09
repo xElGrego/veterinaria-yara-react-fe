@@ -19,7 +19,8 @@ export interface UsuariosServices {
 }
 
 export interface MascotasServices {
-  getMascotas(req: MascotasRequest): Promise<ItemsPaginationResponse<MascotasResponse>>
+  getMascotas(req: MascotasRequest): Promise<ItemsPaginationResponse<IMascota>>
+  GetMascotasUsuarios(start: number, length: number, idUsuario: Guid): Promise<IMascota[]>
   postMascota(req: IAddMascotaRequest): Promise<IAddMascotaResponse>
   putMascota(req: IAddMascotaRequest): Promise<IAddMascotaResponse>
   deleteMascota(req: Guid): Promise<string>

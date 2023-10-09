@@ -9,6 +9,7 @@ export interface IMascota {
     fechaIngreso: Date | null;
     fechaModificacion: Date;
     estado: number;
+    orden: number;
 }
 
 export type MascotaRequest = {
