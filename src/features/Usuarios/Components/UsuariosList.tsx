@@ -1,6 +1,5 @@
 import { FC, useContext } from "react";
 import UsuarioContext, { IUsariosContext } from "../provider";
-import { IUsuariosRequest } from "../../../domain/User/IUsuario";
 import { useAppSelector } from "../../../store/store";
 import { usuariosSelector } from "../../../redux/User/user.selector";
 import { User } from "../../../domain/User/User";
@@ -24,17 +23,6 @@ export const UsuariosList: FC = () => {
               <table className="min-w-full table-fixed   divide-y w-auto divide-gray-300 dark:divide-gray-700 ">
                 <thead className="text-center divide-y top-0 z-50 dark:bg-neutral-800 dark:text-white">
                   <tr className="">
-                    {/* <th>
-                      {Usuarios.length > 0 ? (
-                        <Checkbox
-                          indeterminate={indeterminate}
-                          onChange={onCheckAllChange}
-                          checked={checkAll}
-                        ></Checkbox>
-                      ) : (
-                        <></>
-                      )}
-                    </th> */}
                     <th scope="col" className="py-3.5 pl-4 pr-3 sm:pl-6">
                       Nombre
                     </th>
