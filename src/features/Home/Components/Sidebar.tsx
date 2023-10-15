@@ -3,7 +3,6 @@ import { HiMenuAlt3, HiLogout } from "react-icons/hi";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiMessageSquare } from "react-icons/fi";
-
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -26,6 +25,11 @@ export const SideBar: FC = () => {
     { name: "Usuarios", link: "usuarios", icon: AiOutlineUser },
     { name: "Mascotas", link: "mascotas", icon: FiMessageSquare },
     { name: "Razas", link: "razas", icon: TbReportAnalytics },
+    {
+      name: "Configuraciones",
+      link: "configuraciones",
+      icon: TbReportAnalytics,
+    },
   ];
 
   const handlerLogout = () => {

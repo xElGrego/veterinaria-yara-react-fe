@@ -5,9 +5,7 @@ import * as yup from "yup";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UsuariosList } from "./Components/UsuariosList";
-import UsuariosFormWithAuthorization, {
-  UsuariosForm,
-} from "./Components/UsuariosForm";
+import { UsuariosForm } from "./Components/UsuariosForm";
 
 export const Usuarios: FC = () => {
   const mascotasForm: IUsuariosRequest = {
@@ -36,8 +34,8 @@ export const Usuarios: FC = () => {
 
   return (
     <FormProvider {...methods}>
-      {/*  <UsuariosForm /> */}
-      <UsuariosFormWithAuthorization />
+      <UsuariosForm />
+      {/*   <UsuariosFormWithAuthorization /> */}
       <UsuariosList />
     </FormProvider>
   );

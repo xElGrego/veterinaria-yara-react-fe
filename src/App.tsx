@@ -5,6 +5,9 @@ import { RazasIndex } from "./features/Razas";
 import { MascotaIndex } from "./features/Mascotas";
 import { UsuarioIndex } from "./features/Usuarios";
 import { UsuariosMascotasIndex } from "./features/Usuarios/pages/UsuariosMascotas";
+import { ConfiguracionesIndex } from "./features/configuraciones";
+import { ProtectedRoute } from "./shared/hooks/proteteduRoute";
+import { UnauthorizedPage } from "./shared/pages/Unauthorized";
 
 export function App() {
   return (
@@ -17,9 +20,18 @@ export function App() {
           <Route path="razas" element={<RazasIndex />} />
           <Route path="usuarios" element={<UsuarioIndex />} />
           <Route
+            path="configuraciones"
+            element={
+              <ProtectedRoute>
+                <ConfiguracionesIndex />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="usuarios/mascotas/:id"
             element={<UsuariosMascotasIndex />}
           />
+          <Route path="unauthorized" element={<UnauthorizedPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

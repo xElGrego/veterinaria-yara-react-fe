@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  ReactNode,
-  useState,
-} from "react";
+import { createContext, ReactNode, useState } from "react";
 import { IPaginationButtonsProps } from "../../shared/Components/PaginationButtons";
 import { IUsuariosRequest } from "../../domain/User/IUsuario";
 import moment from "moment";
@@ -17,8 +11,6 @@ export interface IUsariosContext {
   TotalPage: number;
   resetPagination: () => void;
   buttons: IPaginationButtonsProps;
-  /*   idUsuarioSelected: Guid | null;
-  setIdUsuarioSelected: Dispatch<SetStateAction<string | null>>; */
 }
 
 const UsuarioContext = createContext({});

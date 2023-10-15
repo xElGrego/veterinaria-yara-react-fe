@@ -2,17 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-.link{
-    @apply text-white block p-5 font-bold hover:text-yellow-500 cursor-pointer
+.link {
+  @apply text-white block p-5 font-bold hover:text-yellow-500 cursor-pointer;
 }
 
-.input-general{
-    @apply w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500
+.input-general {
+  @apply w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500;
 }
-
 
 .react-beautiful-dnd-disable-animations {
-    transition: none !important;
+  transition: none !important;
+}
+
+.emoji-404 {
+  position: relative;
+  animation: mymove 2.5s infinite;
+}
+
+@keyframes mymove {
+  33% {
+    top: 0px;
   }
+  66% {
+    top: 20px;
+  }
+  100% {
+    top: 0px;
+  }
+}
