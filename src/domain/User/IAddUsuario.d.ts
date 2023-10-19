@@ -4,7 +4,7 @@ export interface IAddUsuarioRequest {
     apellidos: string;
     correo: string;
     clave: string;
-    rol: string[];
+    rol: string[''];
 }
 
 export interface IAddUsuarioResponse {
