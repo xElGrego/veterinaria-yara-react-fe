@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { mascotasSelector } from "../../../../redux/Mascotas/mascotasSelector";
 import { guardarMascota } from "../../../../redux/Mascotas/mascotas.slice";
 import { idUsuarioSelector } from "../../../../redux/User/user.selector";
+import { MascotaRequest } from "../../../../domain/Mascotas/IMascota";
 
 export const ContentModal: FC = () => {
   const dispatch = useDispatch();
@@ -87,56 +88,58 @@ export const ContentModal: FC = () => {
   }, [razas]);
 
   return (
-    <form onSubmit={handleSubmit(handlerAgregarEditar)} className="py-4">
-      <div className="flex justify-end"></div>
-      <div>
-        {dataLoaded ? (
-          <InputRaza name="Razas" title="Razas" key={updateKey} />
-        ) : (
-          <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">
-            <Spinner class="w-5 h-5 text-blue-600 dark:text-white" />
-            Cargando mascotas...
-          </div>
-        )}
+    <div>
+      <form onSubmit={handleSubmit(handlerAgregarEditar)} className="py-4">
+        <div className="flex justify-end"></div>
+        <div>
+          {dataLoaded ? (
+            <InputRaza name="Razas" title="Razas" key={updateKey} />
+          ) : (
+            <div className="lg:col-span-2 my-auto pt-7 dark:text-white text-sm flex mx-auto">
+              <Spinner class="w-5 h-5 text-blue-600 dark:text-white" />
+              Cargando mascotas...
+            </div>
+          )}
 
-        <InputText
-          label="Nombre"
-          name="nombre"
-          error={errors.nombre?.message}
-          register={register}
-        />
-        <InputText
-          label="Apodo"
-          name="mote"
-          error={errors.mote?.message}
-          register={register}
-        />
-        <InputText
-          label="Edad"
-          name="edad"
-          error={errors.edad?.message}
-          register={register}
-        />
-        <InputText
-          label="Peso"
-          name="peso"
-          error={errors.peso?.message}
-          register={register}
-        />
-      </div>
+          <InputText
+            label="Nombre"
+            name="nombre"
+            error={errors.nombre?.message}
+            register={register}
+          />
+          <InputText
+            label="Apodo"
+            name="mote"
+            error={errors.mote?.message}
+            register={register}
+          />
+          <InputText
+            label="Edad"
+            name="edad"
+            error={errors.edad?.message}
+            register={register}
+          />
+          <InputText
+            label="Peso"
+            name="peso"
+            error={errors.peso?.message}
+            register={register}
+          />
+        </div>
 
-      <br />
-      <div className="flex gap-4 justify-end">
-        <Button
-          title={idMascotaSeleccionada ? "Editar" : "Agregar"}
-          type="submit"
-        />
-        <Button
-          onClick={handlerLimpiar}
-          title="Limpiar"
-          backgroundColor="bg-red-600"
-        />
-      </div>
-    </form>
+        <br />
+        <div className="flex gap-4 justify-end">
+          <Button
+            title={idMascotaSeleccionada ? "Editar" : "Agregar"}
+            type="submit"
+          />
+          <Button
+            onClick={handlerLimpiar}
+            title="Limpiar"
+            backgroundColor="bg-red-600"
+          />
+        </div>
+      </form>
+    </div>
   );
 };

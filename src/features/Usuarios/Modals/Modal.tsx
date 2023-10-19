@@ -36,7 +36,8 @@ export const ContentModalUsuario: FC = () => {
         {fields.map((item, index) => (
           <div key={item.id}>
             <Controller
-              name={`rol[${index}].name`}
+              //name={`rol[${index}].name`}
+              name={`rol[${index}]`}
               control={control}
               render={({ field }) => (
                 <InputText label="Rol" name={field.name} register={register} />
@@ -52,7 +53,8 @@ export const ContentModalUsuario: FC = () => {
         <button
           type="button"
           onClick={() => {
-            append({ name: "" });
+            //append({ name: "" });
+            append("");
           }}
         >
           Add Rol

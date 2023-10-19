@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { ContentModal } from "./Modal";
 import { IAddMascotaRequest } from "../../../../domain/Mascotas/IAddMascota";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Drawer } from "antd";
 import { Razas } from "../../../Razas/razas";
+import { MascotaRequest } from "../../../../domain/Mascotas/IMascota";
 
 export const ModalMascotaIndex: FC = () => {
   const mascotaForm: IAddMascotaRequest = {
@@ -35,6 +36,12 @@ export const ModalMascotaIndex: FC = () => {
     setOpen(true);
   };
 
+  const { setValue } = useFormContext<MascotaRequest>();
+
+  const handleCambiar = () => {
+    setValue("nombre", "XD");
+  };
+
   const onClose = () => {
     setOpen(false);
   };
@@ -49,7 +56,9 @@ export const ModalMascotaIndex: FC = () => {
           Agregar raza
         </button>
       </div>
+
       <ContentModal />
+      {/* <button onClick={handleCambiar}>Cambiando</button> */}
 
       <Drawer
         title="Agregar raza"
