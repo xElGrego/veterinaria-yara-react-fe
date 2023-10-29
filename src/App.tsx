@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./features/Login/Login";
-import { Layout } from "./features/Home/Home";
+import { Layout } from "./features/Home/Layout";
 import { RazasIndex } from "./features/Razas";
 import { MascotaIndex } from "./features/Mascotas";
 import { UsuarioIndex } from "./features/Usuarios";
@@ -8,7 +8,7 @@ import { UsuariosMascotasIndex } from "./features/Usuarios/pages/UsuariosMascota
 import { ConfiguracionesIndex } from "./features/configuraciones";
 import { ProtectedRoute } from "./shared/hooks/proteteduRoute";
 import { UnauthorizedPage } from "./shared/pages/Unauthorized";
-import { Home } from "./features/Home/Home2";
+import { Home } from "./features/Home/Home";
 
 export function App() {
   return (
