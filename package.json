@@ -18,6 +18,7 @@
     "@cloudamqp/amqp-client": "^2.1.1",
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.1",
+    "@microsoft/signalr": "^7.0.12",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-beautiful-dnd": "^13.1.5",
     "antd": "^5.9.4",
