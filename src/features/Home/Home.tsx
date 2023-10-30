@@ -1,38 +1,20 @@
-import { FC, useEffect, useState } from "react";
-import { FaUser, FaWallet } from "react-icons/fa"; // Importar los iconos necesarios
-import * as signalR from "@microsoft/signalr";
+import { FC, useEffect } from "react";
+import { FaUser, FaWallet } from "react-icons/fa";
+import { toast } from "react-toastify";
+import Connector from "../../shared/utils/signalRConnection";
 
 export const Home: FC = () => {
-  const [messages, setMessages] = useState<string[]>([]);
-
   useEffect(() => {
-    const connection = new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:7097/chatHubR")
-      .build();
+    const connector = Connector.getInstance();
 
-    connection.start().catch((error) => console.error(error));
-
-    connection.on("Notificar", (message) => {
-      console.log("Mensaje", message);
-      setMessages([...messages, message]);
+    connector.initialize((message: string) => {
+      toast.info(message);
     });
-
-    return () => {
-      connection.stop();
-    };
-  }, [messages]);
+  });
 
   return (
     <section className="mx-2 px-4 py-2 w-full h-screen flex flex-col items-center justify-start">
       <div className="flex flex-col justify-center text-center mb-2 absolute sm:mt-0">
-        <div>
-          <h2 className="text-black">Mensajes </h2>
-          <ul className="text-black">
-            {messages.map((message, index) => (
-              <li key={index}>{message}</li>
-            ))}
-          </ul>
-        </div>
         <div className="mt-8">
           <span className="mb-1 text-4xl font-bold">Suscripciones</span>
         </div>
